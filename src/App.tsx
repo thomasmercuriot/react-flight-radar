@@ -4,8 +4,11 @@ import MapComponent from './components/MapComponent';
 const App: React.FC = () => {
   return (
     <div>
-      <h1>React Flight Radar</h1>
-      <MapComponent />
+      <MapComponent
+        accessToken={process.env.REACT_APP_MAPBOX_TOKEN!} // Get your own access token at https://account.mapbox.com/.
+        center={[2.550, 49.008]} // CDG Airport
+        zoom={13}
+      />
     </div>
   );
 };

@@ -1,36 +1,46 @@
-import React from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'; // npm install -D @types/leaflet (for TypeScript support).
+import React, { useRef, useEffect, useState } from 'react';
+import mapboxgl from 'mapbox-gl'; // npm install --save react-map-gl mapbox-gl @types/mapbox-gl
+import 'mapbox-gl/dist/mapbox-gl.css'; // The base map library requires its stylesheet be included at all times.
 
-import L from 'leaflet';
-import icon from 'leaflet/dist/images/marker-icon.png';
-import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+interface MapComponentProps {
+  accessToken: string;
+  center: [number, number];
+  zoom: number;
+};
 
-let DefaultIcon = L.icon({
-  iconUrl: icon,
-  shadowUrl: iconShadow,
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41]
-});
+const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }) => {
+  const mapContainer = useRef<HTMLDivElement>(null);
+  const map = useRef<mapboxgl.Map | null>(null);
+  const [lng, setLng] = useState(center[0]);
+  const [lat, setLat] = useState(center[1]);
+  const [mapZoom, setMapZoom] = useState(zoom);
 
-L.Marker.prototype.options.icon = DefaultIcon;
+  useEffect(() => {
+    if (map.current) return; // initialize map only once
+    mapboxgl.accessToken = accessToken;
+    map.current = new mapboxgl.Map({
+      container: mapContainer.current!,
+      style: 'mapbox://styles/thomasmercuriot/cm0mjab8c00bi01pj0oqm0v78',
+      center: [lng, lat],
+      zoom: mapZoom
+    });
 
-const MapComponent: React.FC = () => {
-  const position: [number, number] = [51.505, -0.09];
+    map.current.on('move', () => {
+      if (map.current) {
+        setLng(Number(map.current.getCenter().lng.toFixed(4)));
+        setLat(Number(map.current.getCenter().lat.toFixed(4)));
+        setMapZoom(Number(map.current.getZoom().toFixed(2)));
+      }
+    });
+  }, [accessToken, lng, lat, mapZoom]);
 
   return (
-    <MapContainer center={position} zoom={13} scrollWheelZoom={false} style={{ height: '400px', width: '100%' }}>
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <Marker position={position}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker>
-    </MapContainer>
+    <div>
+      <div ref={mapContainer} style={{ height: '100vh', width: '100%' }} />
+      <div>
+        Longitude: {lng} | Latitude: {lat} | Zoom: {mapZoom}
+      </div>
+    </div>
   );
 };
 
