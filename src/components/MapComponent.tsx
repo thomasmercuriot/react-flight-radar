@@ -14,6 +14,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
   const [lng, setLng] = useState(center[0]);
   const [lat, setLat] = useState(center[1]);
   const [mapZoom, setMapZoom] = useState(zoom);
+  const [bounds, setBounds] = useState<mapboxgl.LngLatBounds | null>(null);
 
   useEffect(() => {
     if (map.current) return; // initialize map only once
@@ -30,15 +31,23 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
         setLng(Number(map.current.getCenter().lng.toFixed(4)));
         setLat(Number(map.current.getCenter().lat.toFixed(4)));
         setMapZoom(Number(map.current.getZoom().toFixed(2)));
+        setBounds(map.current.getBounds());
       }
     });
   }, [accessToken, lng, lat, mapZoom]);
 
   return (
     <div>
-      <div ref={mapContainer} style={{ height: '100vh', width: '100%' }} />
+      <div ref={mapContainer} style={{ height: '80vh', width: '100%' }} />
       <div>
-        Longitude: {lng} | Latitude: {lat} | Zoom: {mapZoom}
+        <p>Longitude: {lng} | Latitude: {lat} | Zoom: {mapZoom}</p>
+        {bounds && (
+          <p>
+            Bounding Box:<br />
+            - SW: [{bounds.getSouthWest().lng.toFixed(4)}, {bounds.getSouthWest().lat.toFixed(4)}]<br />
+            - NE: [{bounds.getNorthEast().lng.toFixed(4)}, {bounds.getNorthEast().lat.toFixed(4)}]
+          </p>
+        )}
       </div>
     </div>
   );
