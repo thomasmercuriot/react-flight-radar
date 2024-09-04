@@ -7,7 +7,7 @@ const App: React.FC = () => {
       <MapComponent
         accessToken={process.env.REACT_APP_MAPBOX_TOKEN!} // Get your own access token at https://account.mapbox.com/.
         center={[2.550, 49.008]} // CDG Airport
-        zoom={13}
+        zoom={9}
       />
     </div>
   );

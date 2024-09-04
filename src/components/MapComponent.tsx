@@ -78,9 +78,12 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
   }, [accessToken, lng, lat, mapZoom]);
 
   useEffect(() => {
-    if (bounds) {
-      fetchAircrafts(bounds);
-    }
+    const getData = setTimeout(() => {
+      if (bounds) {
+        fetchAircrafts(bounds);
+      }
+    }, 2000);
+    return () => clearTimeout(getData);
   }, [bounds, fetchAircrafts]);
 
   useEffect(() => {
