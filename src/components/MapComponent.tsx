@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState, useCallback } from 'react';
 import mapboxgl from 'mapbox-gl'; // npm install --save react-map-gl mapbox-gl @types/mapbox-gl
 import 'mapbox-gl/dist/mapbox-gl.css'; // The base map library requires its stylesheet be included at all times.
 import axios from 'axios'; // npm install axios | Axios is a simple promise based HTTP client for the browser and node.js.
+import aircraftIconStandard from '../assets/aircraft-icon-standard.png';
 
 interface MapComponentProps {
   accessToken: string;
@@ -95,15 +96,27 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
       aircrafts.forEach((aircraft) => {
         const el = document.createElement('div');
         el.className = 'aircraft-marker';
-        el.style.width = '10px';
-        el.style.height = '10px';
-        el.style.backgroundColor = 'red';
-        el.style.borderRadius = '50%';
+        el.style.backgroundImage = `url(${aircraftIconStandard})`; // Icon by Emkamal Kamaluddin (https://www.iconfinder.com/susannanovaIDR).
+        // https://www.iconfinder.com/icons/7217410/aircraft_transport_plane_transportation_airplane_travel_icon.
+        // I used Adobe Photoshop to fill the icon with a solid color (white).
+        el.style.width = '30px';
+        el.style.height = '30px';
+        el.style.backgroundSize = 'cover';
+        el.style.cursor = 'pointer';
 
         const marker = new mapboxgl.Marker(el)
           .setLngLat([aircraft.longitude, aircraft.latitude])
+          .setPopup(new mapboxgl.Popup().setHTML(`
+            <h3>${aircraft.callsign}</h3>
+            <p>Altitude: ${aircraft.baro_altitude} ft</p>
+            <p>Velocity: ${aircraft.velocity} kt</p>
+            <p>Track: ${aircraft.true_track}°</p>
+            <p>Vertical Rate: ${aircraft.vertical_rate} fpm</p>
+            <p>Geo Altitude: ${aircraft.geo_altitude} ft</p>
+            <p>Squawk: ${aircraft.squawk}</p>
+          `))
+          .setRotation(aircraft.true_track)
           .addTo(map.current!);
-
           markersRef.current.push(marker);
       });
     }
