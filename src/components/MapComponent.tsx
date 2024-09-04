@@ -32,6 +32,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
   const [bounds, setBounds] = useState<mapboxgl.LngLatBounds | null>(null); // The bounding box coordinates will be required when fetching our API.
   // Read API documentation at https://github.com/thomasmercuriot/node-flight-radar.
   const [aircrafts, setAircrafts] = useState<Aircraft[]>([]);
+  const markersRef = useRef<mapboxgl.Marker[]>([]); // We will store the markers in a ref to be able to remove them later.
 
   const fetchAircrafts = useCallback(async (boundingBox: mapboxgl.LngLatBounds | null) => {
     try {
@@ -83,6 +84,10 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
   }, [bounds, fetchAircrafts]);
 
   useEffect(() => {
+
+    markersRef.current.forEach(marker => marker.remove());
+    markersRef.current = [];
+
     if (map.current && aircrafts.length) {
       aircrafts.forEach((aircraft) => {
         const el = document.createElement('div');
@@ -92,9 +97,11 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
         el.style.backgroundColor = 'red';
         el.style.borderRadius = '50%';
 
-        new mapboxgl.Marker(el)
+        const marker = new mapboxgl.Marker(el)
           .setLngLat([aircraft.longitude, aircraft.latitude])
           .addTo(map.current!);
+
+          markersRef.current.push(marker);
       });
     }
   }, [aircrafts]);
