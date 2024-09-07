@@ -34,6 +34,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
   const [bounds, setBounds] = useState<mapboxgl.LngLatBounds | null>(null); // The bounding box coordinates will be required when fetching our API.
   // Read API documentation at https://github.com/thomasmercuriot/node-flight-radar.
   const [aircrafts, setAircrafts] = useState<Aircraft[]>([]);
+  const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
 
   const fetchAircrafts = useCallback(async (boundingBox: mapboxgl.LngLatBounds | null) => {
     try {
@@ -83,9 +84,46 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
     map.current = new mapboxgl.Map({
       container: mapContainer.current!,
       style: 'mapbox://styles/thomasmercuriot/cm0mjab8c00bi01pj0oqm0v78', // Create your own style at https://studio.mapbox.com/.
-      center: [lng, lat],
-      zoom: mapZoom
+      // center: [lng, lat],
+      center: center,
+      // zoom: mapZoom
+      zoom: zoom,
     });
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setUserLocation([longitude, latitude]);
+
+          map.current?.setCenter([longitude, latitude]); // Center the map on the user's location.
+
+          new mapboxgl.Marker({ color: 'red' })
+            .setLngLat([longitude, latitude])
+            .setPopup(new mapboxgl.Popup().setHTML("<h4>Hello from home</h4>")) // Optional popup
+            .addTo(map.current!);
+        },
+        (error) => {
+          switch (error.code) {
+            case error.PERMISSION_DENIED:
+              console.error('The user denied the request for Geolocation.');
+              break;
+            case error.POSITION_UNAVAILABLE:
+              console.error('Location information is unavailable.');
+              break;
+            case error.TIMEOUT:
+              console.error('The request to get user location timed out.');
+              break;
+            default:
+              console.error('An unknown error occurred while trying to get user location.');
+              break;
+          }
+        },
+        { enableHighAccuracy: false, timeout: 10000, maximumAge: 0 } // Optional parameters.
+      );
+    } else {
+      console.error('Geolocation is not supported by this browser.'); // (e.g., Safari on macOS)
+    }
 
     map.current.on('load', () => {
       if (map.current) {
@@ -250,7 +288,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
         setBounds(map.current.getBounds());
       }
     });
-  }, [accessToken, lng, lat, mapZoom, aircrafts, zoom]);
+  }, [accessToken, lng, lat, mapZoom, aircrafts, zoom, center]);
 
   useEffect(() => {
     const getData = setTimeout(() => { // Fetch aircrafts 2 seconds after the user stops moving the map. This will prevent too many API calls.
@@ -282,6 +320,13 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
             Bounding Box:<br />
             - SW: [{bounds.getSouthWest().lng.toFixed(4)}, {bounds.getSouthWest().lat.toFixed(4)}]<br />
             - NE: [{bounds.getNorthEast().lng.toFixed(4)}, {bounds.getNorthEast().lat.toFixed(4)}]
+          </p>
+        )}
+        {userLocation && (
+          <p>
+            User Location:<br />
+            - Longitude: {userLocation[0].toFixed(4)}<br />
+            - Latitude: {userLocation[1].toFixed(4)}
           </p>
         )}
       </div>
