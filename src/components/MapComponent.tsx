@@ -3,6 +3,7 @@ import mapboxgl from 'mapbox-gl'; // npm install --save react-map-gl mapbox-gl @
 import 'mapbox-gl/dist/mapbox-gl.css'; // The base map library requires its stylesheet be included at all times.
 import axios from 'axios'; // npm install axios | Axios is a simple promise based HTTP client for the browser and node.js.
 import aircraftIconStandard from '../assets/aircraft-icon-standard.png';
+import { FeatureCollection, Point } from 'geojson'; // npm install @types/geojson
 
 interface MapComponentProps {
   accessToken: string;
@@ -33,7 +34,6 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
   const [bounds, setBounds] = useState<mapboxgl.LngLatBounds | null>(null); // The bounding box coordinates will be required when fetching our API.
   // Read API documentation at https://github.com/thomasmercuriot/node-flight-radar.
   const [aircrafts, setAircrafts] = useState<Aircraft[]>([]);
-  const markersRef = useRef<mapboxgl.Marker[]>([]); // We will store the markers in a ref to be able to remove them later.
 
   const fetchAircrafts = useCallback(async (boundingBox: mapboxgl.LngLatBounds | null) => {
     try {
@@ -52,8 +52,33 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
     }
   }, []);
 
+  // To get the most out of Mapbox GL JS, we need to convert our aircrafts data to GeoJSON.
+  // GeoJSON is a format for encoding a variety of geographic data structures. Read more at https://geojson.org/.
+
+  const convertToGeoJSON = (aircrafts: Aircraft[]): FeatureCollection<Point> => {
+    return {
+      type: "FeatureCollection",
+      features: aircrafts.map((aircraft) => ({
+        type: "Feature",
+        geometry: {
+          type: "Point",
+          coordinates: [aircraft.longitude, aircraft.latitude],
+        },
+        properties: {
+          callsign: aircraft.callsign,
+          baro_altitude: aircraft.baro_altitude,
+          velocity: aircraft.velocity,
+          true_track: aircraft.true_track,
+          vertical_rate: aircraft.vertical_rate,
+          geo_altitude: aircraft.geo_altitude,
+          squawk: aircraft.squawk,
+        },
+      })),
+    };
+  };
+
   useEffect(() => {
-    if (map.current) return; // initialize map only once
+    if (map.current) return; // Initialize the map only once.
     mapboxgl.accessToken = accessToken;
     map.current = new mapboxgl.Map({
       container: mapContainer.current!,
@@ -65,6 +90,155 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
     map.current.on('load', () => {
       if (map.current) {
         setBounds(map.current.getBounds());
+
+        map.current.addSource('aircrafts', {
+          type: 'geojson',
+          data: convertToGeoJSON(aircrafts),
+          cluster: true, // Enable clustering to optimize readability and performance. (avoid overlapping markers & reduce the number of markers).
+          // Read the documentation I used at https://docs.mapbox.com/mapbox-gl-js/example/cluster/.
+          clusterMaxZoom: 12, // The example uses 14, but I found 12 to be more suitable.
+          clusterRadius: 40, // The example uses 50, but I found 40 to be more suitable.
+        });
+
+        map.current.addLayer({
+          id: 'clusters',
+          type: 'circle',
+          source: 'aircrafts',
+          filter: ['has', 'point_count'],
+          paint: {
+            'circle-color': [
+              'step',
+              ['get', 'point_count'],
+              '#51bbd6',
+              25, // 100
+              '#f1f075',
+              100, // 750
+              '#f28cb1'
+            ],
+            'circle-radius': [
+              'step',
+              ['get', 'point_count'],
+              20,
+              100,
+              30,
+              750,
+              40
+            ]
+          }
+        });
+
+        map.current.addLayer({
+          id: 'cluster-count',
+          type: 'symbol',
+          source: 'aircrafts',
+          filter: ['has', 'point_count'],
+          layout: {
+            'text-field': '{point_count_abbreviated}',
+            'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+            'text-size': 12
+          }
+        });
+
+        // Unlike the previous version of the MapComponent (no clustering), we need to load the image we will use for the aircraft icon.
+        // Previous integration of the icon: el.style.backgroundImage = `url(${aircraftIconStandard})`;
+        // Icon by Emkamal Kamaluddin (https://www.iconfinder.com/susannanovaIDR).
+        // https://www.iconfinder.com/icons/7217410/aircraft_transport_plane_transportation_airplane_travel_icon.
+        // I used Adobe Photoshop to fill the icon with a solid color (white).
+
+        map.current?.loadImage(aircraftIconStandard, (error, image) => {
+          if (error) throw error;
+
+          if (image && !map.current?.hasImage('aircraft-icon')) {
+            map.current?.addImage('aircraft-icon', image);
+          }
+
+          map.current?.addLayer({
+            id: 'unclustered-point', // This layer will display the individual aircrafts (= Marker).
+            type: 'symbol',
+            source: 'aircrafts',
+            filter: ['!', ['has', 'point_count']],
+            layout: {
+              'icon-image': 'aircraft-icon',
+              'icon-size': 1 / 20,
+              'icon-rotate': ['get', 'true_track'], // Rotate the icon based on the aircraft's true track.
+              'icon-allow-overlap': true, // Allow the icon to overlap with other icons because the clustering will help avoid overlapping in most cases.
+              // However, I want the clustering to be turned off over a certain zoom level to display the individual aircrafts rather than 2-5 aircrafts in a cluster.
+              // Overlapping will mainly occur when the user is focused on an airport or a specific area with a high density of aircrafts.
+            },
+          });
+        });
+
+        map.current.on('click', 'clusters', (e) => { // When the user clicks on a cluster, the map will zoom in to the cluster and center it.
+          const features = map.current!.queryRenderedFeatures(e.point, {
+            layers: ['clusters']
+          });
+
+          const clusterId = features[0].properties?.cluster_id;
+          if (!clusterId) return;
+
+          const source = map.current!.getSource('aircrafts') as mapboxgl.GeoJSONSource;
+          source.getClusterExpansionZoom(clusterId, (err: any, zoom: number | undefined | null) => {
+            if (err || zoom === undefined || zoom === null) return;
+
+            const coordinates = (features[0].geometry as GeoJSON.Point).coordinates;
+            if (coordinates.length === 2) {
+              map.current!.easeTo({
+                center: [coordinates[0], coordinates[1]] as mapboxgl.LngLatLike,
+                zoom: zoom
+              });
+            }
+          })
+        })
+
+        map.current.on('click', 'unclustered-point', (e) => { // When the user clicks on an individual aircraft, it will center the map on the aircraft.
+          if (e.features === undefined) return;
+
+          const coordinates = (e.features[0].geometry as GeoJSON.Point).coordinates.slice();
+
+          if (coordinates.length === 2) {
+            map.current!.easeTo({
+              center: [coordinates[0], coordinates[1]] as mapboxgl.LngLatLike,
+              // zoom: zoom (optional, I decided to keep the current zoom level).
+            });
+          }
+
+          if (map.current === null) return;
+          if (e.features[0].properties === null) return;
+
+          new mapboxgl.Popup()
+            .setLngLat([coordinates[0], coordinates[1]] as mapboxgl.LngLatLike)
+            .setHTML(`
+              <h3>${e.features[0].properties.callsign}</h3>
+              <p>Altitude: ${e.features[0].properties.baro_altitude} ft</p>
+              <p>Velocity: ${e.features[0].properties.velocity} kt</p>
+              <p>Track: ${e.features[0].properties.true_track}°</p>
+              <p>Vertical Rate: ${e.features[0].properties.vertical_rate} fpm</p>
+              <p>Geo Altitude: ${e.features[0].properties.geo_altitude} ft</p>
+              <p>Squawk: ${e.features[0].properties.squawk}</p>
+            `) // You can customize the native Mapbox popup content here.
+            .addTo(map.current);
+        });
+
+        map.current.on('mouseenter', 'clusters', () => {
+          if (map.current === null) return;
+          map.current.getCanvas().style.cursor = 'pointer';
+        });
+
+        map.current.on('mouseleave', 'clusters', () => {
+          if (map.current === null) return;
+          map.current.getCanvas().style.cursor = '';
+        });
+
+        map.current.on('mouseenter', 'unclustered-point', () => {
+          if (map.current === null) return;
+          map.current.getCanvas().style.cursor = 'pointer';
+        });
+
+        map.current.on('mouseleave', 'unclustered-point', () => {
+          if (map.current === null) return;
+          map.current.getCanvas().style.cursor = '';
+        });
+
       }
     });
 
@@ -76,10 +250,11 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
         setBounds(map.current.getBounds());
       }
     });
-  }, [accessToken, lng, lat, mapZoom]);
+  }, [accessToken, lng, lat, mapZoom, aircrafts, zoom]);
 
   useEffect(() => {
-    const getData = setTimeout(() => {
+    const getData = setTimeout(() => { // Fetch aircrafts 2 seconds after the user stops moving the map. This will prevent too many API calls.
+      // We are using the OpenSky Network REST API to fetch live aircraft location data. Anonymous users get 400 API credits per day.
       if (bounds) {
         fetchAircrafts(bounds);
       }
@@ -88,37 +263,12 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
   }, [bounds, fetchAircrafts]);
 
   useEffect(() => {
+    if (!map.current) return;
 
-    markersRef.current.forEach(marker => marker.remove());
-    markersRef.current = [];
-
-    if (map.current && aircrafts.length) {
-      aircrafts.forEach((aircraft) => {
-        const el = document.createElement('div');
-        el.className = 'aircraft-marker';
-        el.style.backgroundImage = `url(${aircraftIconStandard})`; // Icon by Emkamal Kamaluddin (https://www.iconfinder.com/susannanovaIDR).
-        // https://www.iconfinder.com/icons/7217410/aircraft_transport_plane_transportation_airplane_travel_icon.
-        // I used Adobe Photoshop to fill the icon with a solid color (white).
-        el.style.width = '30px';
-        el.style.height = '30px';
-        el.style.backgroundSize = 'cover';
-        el.style.cursor = 'pointer';
-
-        const marker = new mapboxgl.Marker(el)
-          .setLngLat([aircraft.longitude, aircraft.latitude])
-          .setPopup(new mapboxgl.Popup().setHTML(`
-            <h3>${aircraft.callsign}</h3>
-            <p>Altitude: ${aircraft.baro_altitude} ft</p>
-            <p>Velocity: ${aircraft.velocity} kt</p>
-            <p>Track: ${aircraft.true_track}°</p>
-            <p>Vertical Rate: ${aircraft.vertical_rate} fpm</p>
-            <p>Geo Altitude: ${aircraft.geo_altitude} ft</p>
-            <p>Squawk: ${aircraft.squawk}</p>
-          `))
-          .setRotation(aircraft.true_track)
-          .addTo(map.current!);
-          markersRef.current.push(marker);
-      });
+    if (map.current.getSource('aircrafts')) {
+      (map.current.getSource('aircrafts') as mapboxgl.GeoJSONSource).setData(
+        convertToGeoJSON(aircrafts)
+      );
     }
   }, [aircrafts]);
 
