@@ -78,6 +78,9 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
         properties: {
           icao24: aircraft.icao24,
           callsign: aircraft.callsign,
+          last_contact: aircraft.last_contact,
+          longitude: aircraft.longitude,
+          latitude: aircraft.latitude,
           baro_altitude: aircraft.baro_altitude,
           velocity: aircraft.velocity,
           true_track: aircraft.true_track,
@@ -261,6 +264,9 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
             .setHTML(`
               <h3>${e.features[0].properties.icao24}</h3>
               <h3>${e.features[0].properties.callsign}</h3>
+              <p>Last Contact: ${e.features[0].properties.last_contact} sec</p>
+              <p>Longitude: ${e.features[0].properties.longitude}</p>
+              <p>Latitude: ${e.features[0].properties.latitude}</p>
               <p>Altitude: ${e.features[0].properties.baro_altitude} ft</p>
               <p>Velocity: ${e.features[0].properties.velocity} kt</p>
               <p>Track: ${e.features[0].properties.true_track}°</p>
