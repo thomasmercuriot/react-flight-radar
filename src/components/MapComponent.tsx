@@ -4,6 +4,7 @@ import 'mapbox-gl/dist/mapbox-gl.css'; // The base map library requires its styl
 import axios from 'axios'; // npm install axios | Axios is a simple promise based HTTP client for the browser and node.js.
 import aircraftIconStandard from '../assets/aircraft-icon-standard.png';
 import { FeatureCollection, Point } from 'geojson'; // npm install @types/geojson
+import PopupComponent from './PopupComponent';
 
 interface MapComponentProps {
   accessToken: string;
@@ -35,6 +36,15 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
   // Read API documentation at https://github.com/thomasmercuriot/node-flight-radar.
   const [aircrafts, setAircrafts] = useState<Aircraft[]>([]);
   const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
+  const [selectedFlight, setSelectedFlight] = useState<Aircraft | null>(null); // To display the pop-up when an aircraft is clicked.
+
+  const handleAircraftClick = (aircraft: Aircraft) => {
+    setSelectedFlight(aircraft);
+  };
+
+  const handleClosePopup = () => {
+    setSelectedFlight(null);
+  };
 
   const fetchAircrafts = useCallback(async (boundingBox: mapboxgl.LngLatBounds | null) => {
     try {
@@ -66,6 +76,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
           coordinates: [aircraft.longitude, aircraft.latitude],
         },
         properties: {
+          icao24: aircraft.icao24,
           callsign: aircraft.callsign,
           baro_altitude: aircraft.baro_altitude,
           velocity: aircraft.velocity,
@@ -231,6 +242,8 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
         map.current.on('click', 'unclustered-point', (e) => { // When the user clicks on an individual aircraft, it will center the map on the aircraft.
           if (e.features === undefined) return;
 
+          handleAircraftClick(e.features[0].properties as Aircraft); // Display the pop-up with the aircraft's information.
+
           const coordinates = (e.features[0].geometry as GeoJSON.Point).coordinates.slice();
 
           if (coordinates.length === 2) {
@@ -246,6 +259,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
           new mapboxgl.Popup()
             .setLngLat([coordinates[0], coordinates[1]] as mapboxgl.LngLatLike)
             .setHTML(`
+              <h3>${e.features[0].properties.icao24}</h3>
               <h3>${e.features[0].properties.callsign}</h3>
               <p>Altitude: ${e.features[0].properties.baro_altitude} ft</p>
               <p>Velocity: ${e.features[0].properties.velocity} kt</p>
@@ -328,6 +342,11 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
             - Longitude: {userLocation[0].toFixed(4)}<br />
             - Latitude: {userLocation[1].toFixed(4)}
           </p>
+        )}
+      </div>
+      <div>
+        {selectedFlight && (
+          <PopupComponent flight={selectedFlight} onClose={handleClosePopup} />
         )}
       </div>
     </div>
