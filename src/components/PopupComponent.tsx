@@ -143,7 +143,23 @@ const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose }) => {
 
   return (
     <div className="flight-info-popup">
-      <button className="close-btn" onClick={onClose}>X</button>
+      <div className="flight-info-popup-header">
+        <div className="flight-info-popup-header-left">
+          <div className="header-text-upper">
+            {flight.callsign && <p>{flight.callsign}</p>}
+
+          </div>
+        </div>
+        <div className="flight-info-popup-header-right">
+        {loading && <p>Loading...</p>}
+        {error && <p>{error}</p>}
+        {aircraftPhoto && (
+          <div className="image-container">
+            <img src={aircraftPhoto.photo.photoUrl} alt="Aircraft" id='aircraft-photo' />
+          </div>
+        )}
+        </div>
+      </div>
       <h3>Flight Information</h3>
       <h2>ICAO24: {flight.icao24}</h2>
       <h2>Callsign: {flight.callsign}</h2>
@@ -160,7 +176,7 @@ const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose }) => {
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
       {aircraftPhoto && (
-        <div>
+        <div className="image-container">
           <img src={aircraftPhoto.photo.photoUrl} alt="Aircraft" id='aircraft-photo' />
           <h2>Registration: {aircraftPhoto.photo.photoData.registration}</h2>
           {aircraftPhoto.photo.photoData.alternateRegistration && <p>Alternate Registration: {aircraftPhoto.photo.photoData.alternateRegistration}</p>}

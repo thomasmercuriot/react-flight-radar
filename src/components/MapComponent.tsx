@@ -332,7 +332,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
 
   return (
     <div>
-      <div ref={mapContainer} style={{ height: '80vh', width: '100%' }} />
+      <div ref={mapContainer} style={{ height: '100vh', width: '100%' }} />
       <div>
         <p>Longitude: {lng} | Latitude: {lat} | Zoom: {mapZoom}</p>
         {bounds && (
