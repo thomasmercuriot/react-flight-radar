@@ -86,11 +86,28 @@ interface AdditionalFlightData { // Regroup all the additional data.
   };
 }
 
+interface AircraftPhoto { // Aircraft photo information.
+  photo: {
+    photoUrl: string; // URL of the photo retrieved from https://airhistory.net/.
+    photoData: {
+      registration: string | null;
+      alternateRegistration?: string | null; // Optional because some photos may not have this information.
+      aircraftType: string | null; // Aircraft type/model. Might be more detailed than the one in AircraftInfo.
+      aircraftLivery?: string | null; // Optional because some photos may not have this information.
+      locationAirport: string | null; // Location where the photo was taken.
+      locationCountry: string | null; // Country where the photo was taken.
+      date: string | null; // Date the photo was taken.
+      photographer: string | null; // Photographer's name.
+    };
+  }
+}
+
 const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose }) => {
 
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [additionalFlightData, setAdditionalFlightData] = useState<AdditionalFlightData | null>(null);
+  const [aircraftPhoto, setAircraftPhoto] = useState<AircraftPhoto | null>(null);
 
   useEffect(() => {
     if (flight && flight.icao24) {
@@ -105,6 +122,10 @@ const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose }) => {
 
           const additionalFlightDataResponse = await axios.get<AdditionalFlightData>(`http://localhost:8000/api/aircraft/${registration}`);
           setAdditionalFlightData(additionalFlightDataResponse.data);
+
+          const aircraftPhotoResponse = await axios.get<AircraftPhoto>(`http://localhost:8000/api/photo/${registration}`);
+          setAircraftPhoto(aircraftPhotoResponse.data);
+
           setLoading(false);
 
         } catch (error) {
@@ -135,7 +156,21 @@ const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose }) => {
       <p>Vertical Rate: {flight.vertical_rate} fpm</p>
       <p>Geo Altitude: {flight.geo_altitude} ft</p>
       <p>Squawk: {flight.squawk}</p>
-      <p>----------------------------</p>
+      <h3>Aircraft Photo</h3>
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+      {aircraftPhoto && (
+        <div>
+          <img src={aircraftPhoto.photo.photoUrl} alt="Aircraft" id='aircraft-photo' />
+          <h2>Registration: {aircraftPhoto.photo.photoData.registration}</h2>
+          {aircraftPhoto.photo.photoData.alternateRegistration && <p>Alternate Registration: {aircraftPhoto.photo.photoData.alternateRegistration}</p>}
+          <p>Aircraft Type: {aircraftPhoto.photo.photoData.aircraftType}</p>
+          {aircraftPhoto.photo.photoData.aircraftLivery && <p>Aircraft Livery: {aircraftPhoto.photo.photoData.aircraftLivery}</p>}
+          <p>Location: {aircraftPhoto.photo.photoData.locationAirport}, {aircraftPhoto.photo.photoData.locationCountry}</p>
+          <p>Date: {aircraftPhoto.photo.photoData.date}</p>
+          <p>Photographer: {aircraftPhoto.photo.photoData.photographer}</p>
+        </div>
+      )}
       <h3>Additional Flight Data</h3>
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
