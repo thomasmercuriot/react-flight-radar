@@ -59,6 +59,10 @@ interface AircraftInfo { // Information about the aircraft.
   serial: string | null; // Aircraft's serial number.
 }
 
+interface CurrentFlight { // The current flight's flight number.
+  flightNumber: string | null; // Flight number.
+}
+
 interface PastFlight { // Information about past flights. Useful for historical data.
   date: string | null; // Date of the flight.
   callsign: string | null; // Callsign.
@@ -82,6 +86,7 @@ interface AdditionalFlightData { // Regroup all the additional data.
     arrival: FlightTime;
     progress: FlightProgress;
     aircraft: AircraftInfo;
+    thisFlight: CurrentFlight;
     otherFlights: PastFlight[];
   };
 }
@@ -146,8 +151,15 @@ const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose }) => {
       <div className="flight-info-popup-header">
         <div className="flight-info-popup-header-left">
           <div className="header-text-upper">
-            {flight.callsign && <p>{flight.callsign}</p>}
-
+            {flight.callsign && <p id="header-text-upper-callsign">{flight.callsign}</p>}
+            {additionalFlightData && (
+              <div id="header-text-upper-pill">
+                <p id="header-text-upper-flightNumber">{additionalFlightData.data.thisFlight.flightNumber}</p>
+              </div>
+            )}
+          </div>
+          <div className="header-text-lower">
+            {additionalFlightData && <p id="header-text-lower-airline">{additionalFlightData.data.overview.airline}</p>}
           </div>
         </div>
         <div className="flight-info-popup-header-right">
