@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './styles/PopupComponent.css';
 import axios from 'axios'; // npm install axios | Axios is a simple promise based HTTP client for the browser and node.js.
+import aircraftIconFlight from '../assets/icon-flight-origin-destination.png'; // https://www.iconfinder.com/font-awesome.
+import aircraftIconWhite from '../assets/icon-plane-white.png'; // https://www.flaticon.com/fr/icone-gratuite/avion_5655607?term=avion&page=1&position=3&origin=tag&related_id=5655607.
 
 // Read API documentation at https://github.com/thomasmercuriot/node-flight-radar.
 // In addition to the API documentation, I will detail the code as much as possible.
@@ -49,7 +51,7 @@ interface FlightTime { // Departure and arrival times.
 }
 
 interface FlightProgress { // Flight progress information.
-  percentage: string | null; // Percentage of the flight completed. Useful if I want to display a progress bar and calculate the traveled distance.
+  percentage: number | null; // Percentage of the flight completed. Useful if I want to display a progress bar and calculate the traveled distance.
   status: string | null; // On time, delayed, etc.
 }
 
@@ -171,6 +173,36 @@ const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose }) => {
           </div>
         )}
         </div>
+      </div>
+      <div className="flight-info-popup-body">
+        <div className="flight-info-popup-body-top">
+          <div className="flight-info-popup-body-top-airports">
+            {additionalFlightData && (
+              <div className="origin-airport">
+                <h2 id="origin-airport-code">{additionalFlightData.data.origin.code && additionalFlightData.data.origin.code.slice(1,5)}</h2>
+                <p id="origin-airport-city">{additionalFlightData.data.origin.city}</p>
+              </div>
+            )}
+            <img src={aircraftIconFlight} alt="origin-destination-icon" />
+            {additionalFlightData && (
+              <div className="destination-airport">
+                <h2 id="destination-airport-code">{additionalFlightData.data.destination.code && additionalFlightData.data.destination.code.slice(1,5)}</h2>
+                <p id="destination-airport-city">{additionalFlightData.data.destination.city}</p>
+              </div>
+            )}
+          </div>
+          <div className="flight-info-popup-body-top-progress-bar">
+            {additionalFlightData?.data.progress.percentage && (
+              <div className="progress-bar-fill" style={{ width: (additionalFlightData.data.progress.percentage) + '%' }}></div>
+            )}
+            <img src={aircraftIconWhite} alt="Aircraft Icon" />
+            {additionalFlightData?.data.progress.percentage && (
+              <div className="progress-bar-empty" style={{ width: ( 90 - additionalFlightData.data.progress.percentage) + '%' }}></div>
+            )}
+          </div>
+        </div>
+        <div className="flight-info-popup-body-middle"></div>
+        <div className="flight-info-popup-body-bottom"></div>
       </div>
       <h3>Flight Information</h3>
       <h2>ICAO24: {flight.icao24}</h2>

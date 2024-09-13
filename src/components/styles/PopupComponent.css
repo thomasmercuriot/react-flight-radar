@@ -124,3 +124,108 @@
   object-fit: cover;
   object-position: top;
 }
+
+.flight-info-popup-body {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px;
+  margin: 0;
+  background-color: #242424;
+}
+
+.flight-info-popup-body-top {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 0;
+  background-color: #1A1A1A;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.flight-info-popup-body-top-airports {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 0px;
+  padding-right: 0px;
+  gap: 5px;
+  margin: 0;
+}
+
+.flight-info-popup-body-top-airports img {
+  width: 30px;
+  height: 30px;
+}
+
+.origin-airport {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0px;
+  margin: 0;
+  width: 40%;
+}
+
+#origin-airport-code {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+#origin-airport-city {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.destination-airport {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0px;
+  margin: 0;
+  width: 40%;
+}
+
+#destination-airport-code {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+#destination-airport-city {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.flight-info-popup-body-top-progress-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+  margin: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+}
+
+.progress-bar-fill {
+  background-color: orange;
+  height: 5px;
+  border-radius: 5px;
+}
+
+.flight-info-popup-body-top-progress-bar img {
+  width: 15px;
+  height: 15px;
+  rotate: 90deg;
+}
+
+.progress-bar-empty {
+  background-color: grey;
+  height: 5px;
+  border-radius: 5px;
+}
