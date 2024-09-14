@@ -229,3 +229,25 @@
   height: 5px;
   border-radius: 5px;
 }
+
+.flight-info-popup-body-top-arrival {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 3px;
+  padding-bottom: 5px;
+}
+
+.flight-info-popup-body-top-arrival p {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.arrival-status {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}

@@ -47,7 +47,7 @@ interface FlightTime { // Departure and arrival times.
   timezone: string | null; // Timezone.
   terminal: string | null; // Terminal number.
   gate: string | null; // Gate number.
-  status: string | null; // Departed, landed, cancelled, etc.
+  status: string; // Departed, landed, cancelled, etc.
 }
 
 interface FlightProgress { // Flight progress information.
@@ -146,6 +146,19 @@ const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose }) => {
     };
   }, [flight]);
 
+  const getStatusColor = (status: string): string => {
+    switch (status.toLowerCase()) {
+      case 'on time':
+        return 'green'; // Vert pour "on time"
+      case 'delayed':
+        return 'orange'; // Orange pour "delayed"
+      case 'cancelled':
+        return 'red'; // Rouge pour "cancelled"
+      default:
+        return 'white'; // Couleur par défaut
+    }
+  };
+
   if (!flight) return null;
 
   return (
@@ -198,6 +211,19 @@ const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose }) => {
             <img src={aircraftIconWhite} alt="Aircraft Icon" />
             {additionalFlightData?.data.progress.percentage && (
               <div className="progress-bar-empty" style={{ width: ( 90 - additionalFlightData.data.progress.percentage) + '%' }}></div>
+            )}
+          </div>
+          <div className="flight-info-popup-body-top-arrival">
+            {additionalFlightData?.data.progress.status && (
+              <div className="estimated-arrival">
+                <p>{additionalFlightData.data.progress.status.charAt(0).toUpperCase() + additionalFlightData.data.progress.status.slice(1).replace(/h\s/, 'h')}</p>
+              </div>
+            )}
+            {additionalFlightData && (
+              <div className="arrival-status">
+                <p style={{ color: getStatusColor(additionalFlightData.data.arrival.status) }}>●</p>
+                <p>{additionalFlightData.data.arrival.status}</p>
+              </div>
             )}
           </div>
         </div>
