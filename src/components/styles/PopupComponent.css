@@ -89,10 +89,27 @@
   font-size: 0.8rem;
 }
 
+#header-text-upper-pill-reg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  background-color: #242424;
+  height: 1.2rem;
+  padding: 2px 5px;
+  border-radius: 5px;
+}
+
+#header-text-upper-registration {
+  margin: 0;
+  color: white;
+  font-size: 0.8rem;
+}
+
 .header-text-lower {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
+  gap: 5px;
   font-size: 1rem;
   font-weight: 400;
   margin: 0;
@@ -100,7 +117,13 @@
 
 #header-text-lower-airline {
   margin: 0;
-  font-size: 1rem;
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+#header-text-lower-aircraft {
+  margin: 0;
+  font-size: 0.9rem;
   font-weight: 400;
 }
 

@@ -172,9 +172,15 @@ const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose }) => {
                 <p id="header-text-upper-flightNumber">{additionalFlightData.data.thisFlight.flightNumber}</p>
               </div>
             )}
+            {additionalFlightData && (
+              <div id="header-text-upper-pill-reg">
+                <p id="header-text-upper-registration">{additionalFlightData.registration}</p>
+              </div>
+            )}
           </div>
           <div className="header-text-lower">
             {additionalFlightData && <p id="header-text-lower-airline">{additionalFlightData.data.overview.airline}</p>}
+            {aircraftPhoto && <p id="header-text-lower-aircraft">{aircraftPhoto.photo.photoData.aircraftType}</p>}
           </div>
         </div>
         <div className="flight-info-popup-header-right">
