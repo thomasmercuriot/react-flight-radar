@@ -115,6 +115,14 @@ const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose }) => {
   const [error, setError] = useState<string | null>(null);
   const [additionalFlightData, setAdditionalFlightData] = useState<AdditionalFlightData | null>(null);
   const [aircraftPhoto, setAircraftPhoto] = useState<AircraftPhoto | null>(null);
+  const [isClosing, setIsClosing] = useState<boolean>(false);
+
+  const handleCloseClick = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+    }, 300);
+  };
 
   useEffect(() => {
     if (flight && flight.icao24) {
@@ -162,7 +170,7 @@ const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose }) => {
   if (!flight) return null;
 
   return (
-    <div className="flight-info-popup">
+    <div className={`flight-info-popup ${isClosing ? 'closing' : ''}`}>
       <div className="flight-info-popup-header">
         <div className="flight-info-popup-header-left">
           <div className="header-text-upper">
@@ -233,8 +241,9 @@ const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose }) => {
             )}
           </div>
         </div>
-        <div className="flight-info-popup-body-middle"></div>
-        <div className="flight-info-popup-body-bottom"></div>
+        <div className="flight-info-popup-body-bottom">
+          <button onClick={handleCloseClick}>View all Live Flight Data</button>
+        </div>
       </div>
       <h3>Flight Information</h3>
       <h2>ICAO24: {flight.icao24}</h2>
