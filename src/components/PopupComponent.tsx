@@ -244,8 +244,8 @@ const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose, onShow
           </div>
         </div>
         <div className="flight-info-popup-body-bottom">
-          <button onClick={handleCloseClick}>View all Live Flight Data</button>
-          <button id='hidden-button' onClick={onShowDetailed}>View all Live Flight Data</button>
+          <button id='hidden-button' onClick={handleCloseClick}>View all Live Flight Data</button>
+          <button onClick={onShowDetailed}>View all Live Flight Data</button>
         </div>
       </div>
       <h3>Flight Information</h3>
