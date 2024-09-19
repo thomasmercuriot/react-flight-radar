@@ -22,6 +22,8 @@ interface PopupComponentProps {
     squawk: string | null; // The transponder code aka Squawk. Can be null.
   } | null;
   onClose: () => void;
+  onShowDetailed: () => void;
+  hidden: boolean;
 };
 
 interface FlightOverview { // General information about the flight.
@@ -109,7 +111,7 @@ interface AircraftPhoto { // Aircraft photo information.
   }
 }
 
-const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose }) => {
+const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose, onShowDetailed, hidden }) => {
 
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -170,7 +172,7 @@ const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose }) => {
   if (!flight) return null;
 
   return (
-    <div className={`flight-info-popup ${isClosing ? 'closing' : ''}`}>
+    <div className={`flight-info-popup ${isClosing ? 'closing' : ''} ${hidden ? 'hidden' : ''}`}>
       <div className="flight-info-popup-header">
         <div className="flight-info-popup-header-left">
           <div className="header-text-upper">
@@ -243,6 +245,7 @@ const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose }) => {
         </div>
         <div className="flight-info-popup-body-bottom">
           <button onClick={handleCloseClick}>View all Live Flight Data</button>
+          <button id='hidden-button' onClick={onShowDetailed}>View all Live Flight Data</button>
         </div>
       </div>
       <h3>Flight Information</h3>

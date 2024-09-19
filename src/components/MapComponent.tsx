@@ -5,6 +5,7 @@ import axios from 'axios'; // npm install axios | Axios is a simple promise base
 import aircraftIconStandard from '../assets/aircraft-icon-standard.png';
 import { FeatureCollection, Point } from 'geojson'; // npm install @types/geojson
 import PopupComponent from './PopupComponent';
+import DetailedPopupComponent from './DetailedPopupComponent';
 
 interface MapComponentProps {
   accessToken: string;
@@ -37,6 +38,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
   const [aircrafts, setAircrafts] = useState<Aircraft[]>([]);
   const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
   const [selectedFlight, setSelectedFlight] = useState<Aircraft | null>(null); // To display the pop-up when an aircraft is clicked.
+  const [showDetailedPopup, setShowDetailedPopup] = useState<boolean>(false);
 
   const handleAircraftClick = (aircraft: Aircraft) => {
     setSelectedFlight(aircraft);
@@ -45,6 +47,18 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
   const handleClosePopup = () => {
     setSelectedFlight(null);
   };
+
+  const handleShowDetailedPopup = () => {
+    setShowDetailedPopup(true);
+  };
+
+  const handleCloseDetailedPopup = () => {
+    setShowDetailedPopup(false);
+  };
+
+  useEffect(() => {
+    console.log("showDetailedPopup has changed:", showDetailedPopup);
+  }, [showDetailedPopup]);
 
   const fetchAircrafts = useCallback(async (boundingBox: mapboxgl.LngLatBounds | null) => {
     try {
@@ -352,7 +366,19 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
       </div>
       <div>
         {selectedFlight && (
-          <PopupComponent flight={selectedFlight} onClose={handleClosePopup} />
+          <PopupComponent
+            flight={selectedFlight}
+            onClose={handleClosePopup}
+            onShowDetailed={handleShowDetailedPopup}
+            hidden={showDetailedPopup}
+          />
+        )}
+        {selectedFlight && showDetailedPopup && (
+          <DetailedPopupComponent
+            flight={selectedFlight}
+            onClose={handleCloseDetailedPopup}
+            show={showDetailedPopup}
+          />
         )}
       </div>
     </div>

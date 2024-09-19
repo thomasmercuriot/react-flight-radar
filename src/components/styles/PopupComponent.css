@@ -28,6 +28,10 @@
   animation: slideDown 0.3s ease-out forwards;
 }
 
+.flight-info-popup.hidden {
+  animation: slideDown 0.3s ease-out forwards;
+}
+
 @keyframes slideUp {
   from {
     transform: translateY(100%);
@@ -301,4 +305,8 @@
   border: none;
   font-size: 1rem;
   cursor: pointer;
+}
+
+#hidden-button {
+  display: none;
 }
