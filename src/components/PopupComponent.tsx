@@ -228,11 +228,11 @@ const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose, onShow
           </div>
           <div className="flight-info-popup-body-top-progress-bar">
             {additionalFlightData?.data.progress.percentage && (
-              <div className="progress-bar-fill" style={{ width: (additionalFlightData.data.progress.percentage) + '%' }}></div>
+              <div className="progress-bar-fill" style={{ width: (additionalFlightData.data.progress.percentage - 5) + '%' }}></div>
             )}
             <img src={aircraftIconWhite} alt="Aircraft Icon" />
             {additionalFlightData?.data.progress.percentage && (
-              <div className="progress-bar-empty" style={{ width: ( 90 - additionalFlightData.data.progress.percentage) + '%' }}></div>
+              <div className="progress-bar-empty" style={{ width: ( 95 - additionalFlightData.data.progress.percentage) + '%' }}></div>
             )}
           </div>
           <div className="flight-info-popup-body-top-arrival">

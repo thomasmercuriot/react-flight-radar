@@ -38,3 +38,307 @@
     transform: translateY(100%);
   }
 }
+
+.detailed-popup-banner {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: #1A1A1A;
+  color: white;
+  padding: 10px;
+  gap: 5px;
+}
+
+.detailed-popup-banner-upper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0;
+  gap: 5px;
+}
+
+#detailed-popup-banner-upper-callsign {
+  margin: 0;
+  color: orange;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.detailed-popup-banner-upper-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  background-color: #242424;
+  height: 1.2rem;
+  padding: 2px 5px;
+  border-radius: 5px;
+}
+
+#detailed-popup-banner-upper-flight-number {
+  margin: 0;
+  color: white;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-banner-upper-registration {
+  margin: 0;
+  color: white;
+  font-size: 0.8rem;
+}
+
+.detailed-popup-banner-lower {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  gap: 5px;
+}
+
+#detailed-popup-banner-lower-airline {
+  margin: 0;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+#detailed-popup-banner-lower-aircraft {
+  margin: 0;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.detailed-popup-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  overflow-y: scroll;
+}
+
+.detailed-popup-body-image-container {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  border-radius: 10px;
+  background-color: #1A1A1A;
+}
+
+.detailed-popup-body-image {
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+  width: 100%;
+  height: 240px;
+}
+
+.detailed-popup-body-image img {
+  width: 100%;
+  height: auto;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 10px;
+}
+
+.detailed-popup-body-image-credentials {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  padding: 10px;
+}
+
+.detailed-popup-body-image-credentials img {
+  width: 15px;
+  height: 15px;
+}
+
+#detailed-popup-body-image-credentials-photographer {
+  margin: 0;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.detailed-popup-body-overview {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  border-radius: 10px;
+  background-color: #1A1A1A;
+  padding: 10px;
+  gap: 10px;
+}
+
+.detailed-popup-body-overview-airports {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 0px;
+  padding-right: 0px;
+  gap: 5px;
+  margin: 0;
+}
+
+.detailed-popup-body-overview-airports-origin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0px;
+  margin: 0;
+  width: 40%;
+}
+
+#detailed-popup-body-overview-airports-origin-code {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+#detailed-popup-body-overview-airports-origin-city {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-body-overview-airports-origin-timezone {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.detailed-popup-overview-airports-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.detailed-popup-overview-airports-icon img {
+  width: 30px;
+  height: 30px;
+}
+
+.detailed-popup-body-overview-airports-destination {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0px;
+  margin: 0;
+  width: 40%;
+}
+
+#detailed-popup-body-overview-airports-destination-code {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+#detailed-popup-body-overview-airports-destination-city {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-body-overview-airports-destination-timezone {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.detailed-popup-body-overview-progress-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+  margin: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+}
+
+#detailed-popup-body-overview-progress-bar-fill {
+  background-color: orange;
+  height: 5px;
+  border-radius: 5px;
+}
+
+#detailed-popup-body-overview-progress-bar-icon {
+  width: 15px;
+  height: 15px;
+  rotate: 90deg;
+}
+
+#detailed-popup-body-overview-progress-bar-empty {
+  background-color: grey;
+  height: 5px;
+  border-radius: 5px;
+}
+
+#detailed-popup-body-overview-progress-bar-value {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.detailed-popup-body-overview-status {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0;
+  gap: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 0px;
+  padding-bottom: 5px;
+}
+
+.detailed-popup-body-overview-status p {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.detailed-popup-body-overview-status-estimated-arrival {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.detailed-popup-body-overview-status-arrival-status {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+
+
+
+
+
+
+
+.detailed-popup-footer {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  padding-bottom: 25px;
+  background-color: #242424;
+}
+
+.detailed-popup-footer button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 0px;
+  background-color: #1A1A1A;
+  color: orange;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}

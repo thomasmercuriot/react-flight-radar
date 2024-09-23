@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './styles/DetailedPopupComponent.css';
 import { AdditionalFlightData, AircraftPhoto } from './PopupComponent';
+import photoCredentialsIcon from '../assets/photo-credentials-icon.png'; // https://www.iconfinder.com/Kh.Artyom.
+import aircraftIconFlight from '../assets/icon-flight-origin-destination.png'; // https://www.iconfinder.com/font-awesome.
+import aircraftIconWhite from '../assets/icon-plane-white.png'; // https://www.flaticon.com/fr/icone-gratuite/avion_5655607?term=avion&page=1&position=3&origin=tag&related_id=5655607.
 
 interface DetailedPopupComponentProps {
   flight: any;
@@ -30,6 +33,19 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
     }, 300);
   };
 
+  const getStatusColor = (status: string): string => {
+    switch (status.toLowerCase()) {
+      case 'on time':
+        return 'green'; // Vert pour "on time"
+      case 'delayed':
+        return 'orange'; // Orange pour "delayed"
+      case 'cancelled':
+        return 'red'; // Rouge pour "cancelled"
+      default:
+        return 'white'; // Couleur par défaut
+    }
+  };
+
   if (!isVisible) return null;
 
   console.log(flight);
@@ -37,14 +53,108 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
 
   return (
     <div className={`detailed-popup ${isClosing ? 'hidden' : ''}`}>
-      <div className="detailed-popup-image">
-        <img src={selectedFlightPhotoData?.photo.photoUrl} alt={selectedFlightData?.registration} />
+      <div className="detailed-popup-banner">
+        <div className="detailed-popup-banner-upper">
+          {flight.callsign && (
+            <p id="detailed-popup-banner-upper-callsign">{flight.callsign}</p>
+          )}
+          {selectedFlightData?.data.thisFlight.flightNumber && (
+            <div className="detailed-popup-banner-upper-pill">
+              <p id="detailed-popup-banner-upper-flight-number">{selectedFlightData.data.thisFlight.flightNumber}</p>
+            </div>
+          )}
+          {selectedFlightData?.registration && (
+            <div className="detailed-popup-banner-upper-pill">
+              <p id="detailed-popup-banner-upper-registration">{selectedFlightData.registration}</p>
+            </div>
+          )}
+        </div>
+        <div className="detailed-popup-banner-lower">
+          {selectedFlightData?.data.overview.airline && (
+            <p id="detailed-popup-banner-lower-airline">{selectedFlightData.data.overview.airline}</p>
+          )}
+          {selectedFlightPhotoData?.photo.photoData.aircraftType && (
+            <p id="detailed-popup-banner-lower-aircraft">{selectedFlightPhotoData.photo.photoData.aircraftType}</p>
+          )}
+        </div>
       </div>
-      <div className='popup-content'>
-        <span className='close' onClick={handleClose}>&times;</span>
-        <h1>Detailed Pop-Up</h1>
-        <p>Plane ICAO24 : {flight.icao24}</p>
+      <div className="detailed-popup-body">
+        <div className="detailed-popup-body-image-container">
+          <div className="detailed-popup-body-image">
+            {selectedFlightPhotoData?.photo.photoUrl && (
+              <img src={selectedFlightPhotoData?.photo.photoUrl} alt={selectedFlightData?.registration} />
+            )}
+          </div>
+          <div className="detailed-popup-body-image-credentials">
+            <img src={photoCredentialsIcon} alt="Photographer" />
+            {selectedFlightPhotoData?.photo.photoData.photographer && (
+              <p id="detailed-popup-body-image-credentials-photographer">Photographer : {selectedFlightPhotoData.photo.photoData.photographer}</p>
+            )}
+          </div>
+        </div>
+        <div className="detailed-popup-body-overview">
+          <div className="detailed-popup-body-overview-airports">
+            <div className="detailed-popup-body-overview-airports-origin">
+              {selectedFlightData?.data.origin.code && (
+                <p id="detailed-popup-body-overview-airports-origin-code">{
+                  selectedFlightData.data.origin.code.slice(1, 4)
+                }</p>
+              )}
+              {selectedFlightData?.data.origin.city && (
+                <p id="detailed-popup-body-overview-airports-origin-city">{selectedFlightData.data.origin.city}</p>
+              )}
+              {selectedFlightData?.data.departure.timezone && (
+                <p id="detailed-popup-body-overview-airports-origin-timezone">{
+                  selectedFlightData?.data?.departure?.timezone?.match(/\(UTC[-+]?\d{2}:\d{2}\)/)?.[0]
+                }</p>
+              )}
+            </div>
+            <div className="detailed-popup-overview-airports-icon">
+              <img src={aircraftIconFlight} alt="Flight Origin & Destination" />
+            </div>
+            <div className="detailed-popup-body-overview-airports-destination">
+              {selectedFlightData?.data.destination.code && (
+                <p id="detailed-popup-body-overview-airports-destination-code">{
+                  selectedFlightData.data.destination.code.slice(1, 4)
+                }</p>
+              )}
+              {selectedFlightData?.data.destination.city && (
+                <p id="detailed-popup-body-overview-airports-destination-city">{selectedFlightData.data.destination.city}</p>
+              )}
+              {selectedFlightData?.data.arrival.timezone && (
+                <p id="detailed-popup-body-overview-airports-destination-timezone">{
+                  selectedFlightData?.data?.arrival?.timezone?.match(/\(UTC[-+]?\d{2}:\d{2}\)/)?.[0]
+                }</p>
+              )}
+            </div>
+          </div>
+          <div className="detailed-popup-body-overview-progress-bar">
+            {selectedFlightData?.data.progress.percentage && (
+              <div id="detailed-popup-body-overview-progress-bar-fill" style={{ width: (selectedFlightData.data.progress.percentage - 5) + '%' }}></div>
+            )}
+            <img id="detailed-popup-body-overview-progress-bar-icon" src={aircraftIconWhite} alt="Aircraft Icon" />
+            {selectedFlightData?.data.progress.percentage && (
+              <div id="detailed-popup-body-overview-progress-bar-empty" style={{ width: ( 95 - selectedFlightData.data.progress.percentage) + '%' }}></div>
+            )}
+          </div>
+          <div className="detailed-popup-body-overview-status">
+            {selectedFlightData?.data.progress.status && (
+              <div className="detailed-popup-body-overview-status-estimated-arrival">
+                <p>{selectedFlightData.data.progress.status.charAt(0).toUpperCase() + selectedFlightData.data.progress.status.slice(1).replace(/h\s/, 'h')}</p>
+              </div>
+            )}
+            {selectedFlightData && (
+              <div className="detailed-popup-body-overview-status-arrival-status">
+                <p style={{ color: getStatusColor(selectedFlightData.data.arrival.status) }}>●</p>
+                <p>{selectedFlightData.data.arrival.status}</p>
+              </div>
+            )}
+          </div>
 
+        </div>
+      </div>
+      <div className="detailed-popup-footer">
+        <button onClick={handleClose}>Back to Live Map</button>
       </div>
     </div>
   );
