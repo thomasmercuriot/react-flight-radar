@@ -4,7 +4,7 @@ import 'mapbox-gl/dist/mapbox-gl.css'; // The base map library requires its styl
 import axios from 'axios'; // npm install axios | Axios is a simple promise based HTTP client for the browser and node.js.
 import aircraftIconStandard from '../assets/aircraft-icon-standard.png';
 import { FeatureCollection, Point } from 'geojson'; // npm install @types/geojson
-import PopupComponent from './PopupComponent';
+import PopupComponent, { AdditionalFlightData, AircraftPhoto } from './PopupComponent';
 import DetailedPopupComponent from './DetailedPopupComponent';
 
 interface MapComponentProps {
@@ -39,6 +39,8 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
   const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
   const [selectedFlight, setSelectedFlight] = useState<Aircraft | null>(null); // To display the pop-up when an aircraft is clicked.
   const [showDetailedPopup, setShowDetailedPopup] = useState<boolean>(false);
+  const [selectedFlightData, setSelectedFlightData] = useState<AdditionalFlightData | null>(null);
+  const [selectedFlightPhotoData, setSelectedFlightPhotoData] = useState<AircraftPhoto | null>(null);
 
   const handleAircraftClick = (aircraft: Aircraft) => {
     setSelectedFlight(aircraft);
@@ -368,6 +370,8 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
         {selectedFlight && (
           <PopupComponent
             flight={selectedFlight}
+            setSelectedFlightData={setSelectedFlightData}
+            setSelectedFlightPhotoData={setSelectedFlightPhotoData}
             onClose={handleClosePopup}
             onShowDetailed={handleShowDetailedPopup}
             hidden={showDetailedPopup}
@@ -376,6 +380,8 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
         {selectedFlight && showDetailedPopup && (
           <DetailedPopupComponent
             flight={selectedFlight}
+            selectedFlightData={selectedFlightData}
+            selectedFlightPhotoData={selectedFlightPhotoData}
             onClose={handleCloseDetailedPopup}
             show={showDetailedPopup}
           />

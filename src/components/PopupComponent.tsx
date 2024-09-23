@@ -24,6 +24,8 @@ interface PopupComponentProps {
   onClose: () => void;
   onShowDetailed: () => void;
   hidden: boolean;
+  setSelectedFlightData: (data: AdditionalFlightData | null) => void;
+  setSelectedFlightPhotoData: (data: AircraftPhoto | null) => void;
 };
 
 interface FlightOverview { // General information about the flight.
@@ -80,7 +82,7 @@ interface PastFlight { // Information about past flights. Useful for historical 
   duration: string | null; // Duration of the flight.
 }
 
-interface AdditionalFlightData { // Regroup all the additional data.
+export interface AdditionalFlightData { // Regroup all the additional data.
   registration: string;
   data: {
     overview: FlightOverview;
@@ -95,7 +97,7 @@ interface AdditionalFlightData { // Regroup all the additional data.
   };
 }
 
-interface AircraftPhoto { // Aircraft photo information.
+export interface AircraftPhoto { // Aircraft photo information.
   photo: {
     photoUrl: string; // URL of the photo retrieved from https://airhistory.net/.
     photoData: {
@@ -111,7 +113,7 @@ interface AircraftPhoto { // Aircraft photo information.
   }
 }
 
-const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose, onShowDetailed, hidden }) => {
+const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose, onShowDetailed, hidden, setSelectedFlightData, setSelectedFlightPhotoData }) => {
 
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -139,22 +141,26 @@ const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose, onShow
 
           const additionalFlightDataResponse = await axios.get<AdditionalFlightData>(`http://localhost:8000/api/aircraft/${registration}`);
           setAdditionalFlightData(additionalFlightDataResponse.data);
+          setSelectedFlightData(additionalFlightDataResponse.data);
 
           const aircraftPhotoResponse = await axios.get<AircraftPhoto>(`http://localhost:8000/api/photo/${registration}`);
           setAircraftPhoto(aircraftPhotoResponse.data);
+          setSelectedFlightPhotoData(aircraftPhotoResponse.data);
 
           setLoading(false);
 
         } catch (error) {
           console.log('Error fetching additional flight data:', error);
           setError('Error fetching additional flight data');
+          setSelectedFlightData(null);
+          setSelectedFlightPhotoData(null);
           setLoading(false);
         }
       };
 
       fetchRegistration(flight.icao24);
     };
-  }, [flight]);
+  }, [flight, setSelectedFlightData, setSelectedFlightPhotoData]);
 
   const getStatusColor = (status: string): string => {
     switch (status.toLowerCase()) {
