@@ -168,7 +168,7 @@
   height: auto;
   border-radius: 10px;
   background-color: #1A1A1A;
-  padding: 10px;
+  padding: 10px 0px 10px 0px;
   gap: 10px;
 }
 
@@ -288,7 +288,7 @@
   padding-left: 10px;
   padding-right: 10px;
   padding-top: 0px;
-  padding-bottom: 5px;
+  padding-bottom: 2px;
 }
 
 .detailed-popup-body-overview-status p {
@@ -311,6 +311,110 @@
   font-size: 0.8rem;
   font-weight: 400;
 }
+
+.detailed-popup-body-about-flight {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  margin: 0;
+  gap: 5px;
+}
+
+.detailed-popup-body-about-flight-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: auto;
+  border-radius: 10px 10px 0 0;
+  background-color: #1A1A1A;
+  padding: 10px;
+  gap: 10px;
+}
+
+.detailed-popup-body-about-flight-title img {
+  width: 15px;
+  height: 15px;
+}
+
+#detailed-popup-body-about-flight-title-text {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.detailed-popup-body-about-flight-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+}
+
+.detailed-popup-body-about-flight-grid-duration {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: auto;
+  background-color: #1A1A1A;
+  padding: 10px;
+}
+
+#detailed-popup-body-about-flight-grid-duration-text {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-body-about-flight-grid-duration-value {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.detailed-popup-body-about-flight-grid-distance {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: auto;
+  background-color: #1A1A1A;
+  padding: 10px;
+}
+
+#detailed-popup-body-about-flight-grid-distance-text {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-body-about-flight-grid-distance-value {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.detailed-popup-body-about-flight-week-days-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.detailed-popup-body-about-flight-week-days {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  background-color: #1A1A1A;
+  padding: 10px;
+}
+
+.detailed-popup-body-about-flight-week-days p {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#first-week-day {
+  border-radius: 0 0 0 10px;
+}
+
+#last-week-day {
+  border-radius: 0 0 10px 0;
+}
+
 
 
 

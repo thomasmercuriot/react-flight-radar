@@ -4,6 +4,7 @@ import { AdditionalFlightData, AircraftPhoto } from './PopupComponent';
 import photoCredentialsIcon from '../assets/photo-credentials-icon.png'; // https://www.iconfinder.com/Kh.Artyom.
 import aircraftIconFlight from '../assets/icon-flight-origin-destination.png'; // https://www.iconfinder.com/font-awesome.
 import aircraftIconWhite from '../assets/icon-plane-white.png'; // https://www.flaticon.com/fr/icone-gratuite/avion_5655607?term=avion&page=1&position=3&origin=tag&related_id=5655607.
+import informationIcon from '../assets/information-icon.png'; // https://www.iconfinder.com/DesignRevision.
 
 interface DetailedPopupComponentProps {
   flight: any;
@@ -150,8 +151,70 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
               </div>
             )}
           </div>
+        </div>
+
+
+
+        <div className="detailed-popup-body-about-flight">
+
+
+
+          <div className="detailed-popup-body-about-flight-title">
+            <img src={informationIcon} alt="Information Icon" />
+            {selectedFlightData?.data.overview.airline && selectedFlightData?.data.thisFlight.flightNumber && (
+              <p id="detailed-popup-body-about-flight-title-text" >
+                About {selectedFlightData.data.overview.airline} Flight {selectedFlightData.data.thisFlight.flightNumber}
+              </p>
+            )}
+          </div>
+
+          <div className="detailed-popup-body-about-flight-grid">
+            <div className="detailed-popup-body-about-flight-grid-duration">
+              <p id="detailed-popup-body-about-flight-grid-duration-text" >Avg. Duration : </p>
+              {selectedFlightData?.data.overview.duration && (
+                <p id="detailed-popup-body-about-flight-grid-duration-value" >
+                  {selectedFlightData.data.overview.duration}
+                </p>
+              )}
+            </div>
+            <div className="detailed-popup-body-about-flight-grid-distance">
+              <p id="detailed-popup-body-about-flight-grid-distance-text" >Avg. Distance : </p>
+              {selectedFlightData?.data.overview.distance && (
+                <p id="detailed-popup-body-about-flight-grid-distance-value" >
+                  {selectedFlightData.data.overview.distance}
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div className="detailed-popup-body-about-flight-week-days-grid">
+              <div className="detailed-popup-body-about-flight-week-days" id="first-week-day">
+                <p id="monday">MON</p>
+              </div>
+              <div className="detailed-popup-body-about-flight-week-days">
+                <p id="tuesday">TUE</p>
+              </div>
+              <div className="detailed-popup-body-about-flight-week-days">
+                <p id="wednesday">WED</p>
+              </div>
+              <div className="detailed-popup-body-about-flight-week-days">
+                <p id="thursday">THU</p>
+              </div>
+              <div className="detailed-popup-body-about-flight-week-days">
+                <p id="friday">FRI</p>
+              </div>
+              <div className="detailed-popup-body-about-flight-week-days">
+                <p id="saturday">SAT</p>
+              </div>
+              <div className="detailed-popup-body-about-flight-week-days" id="last-week-day">
+                <p id="sunday">SUN</p>
+              </div>
+          </div>
 
         </div>
+
+
+
       </div>
       <div className="detailed-popup-footer">
         <button onClick={handleClose}>Back to Live Map</button>
