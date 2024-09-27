@@ -144,10 +144,25 @@
 
 .detailed-popup-body-image-credentials {
   display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-radius: 10px;
+  padding: 10px;
+  height: 35px;
+  transition: height 0.3s ease;
+}
+
+.detailed-popup-body-image-credentials.expanded-photo {
+  height: 75px;
+}
+
+.detailed-popup-body-image-credentials-photographer {
+  display: flex;
   flex-direction: row;
   align-items: center;
+  /* justify-content: space-between; */
   gap: 5px;
-  padding: 10px;
+  width: 100%;
 }
 
 .detailed-popup-body-image-credentials img {
@@ -162,14 +177,60 @@
   font-weight: 400;
 }
 
+#detailed-popup-body-image-credentials-photographer-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  right: 20px;
+  width: 15px;
+  height: 15px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+}
+
+.detailed-popup-body-image-credentials-expanded {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.detailed-popup-body-image-credentials-location {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
+#detailed-popup-body-image-credentials-location {
+  font-size: 0.8rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+.detailed-popup-body-image-credentials-date {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
+#detailed-popup-body-image-credentials-date {
+  font-size: 0.8rem;
+  font-weight: 400;
+  margin: 0;
+}
+
 .detailed-popup-body-overview {
   display: flex;
   flex-direction: column;
   height: auto;
   border-radius: 10px;
   background-color: #1A1A1A;
-  padding: 10px 0px 10px 0px;
-  gap: 10px;
+  padding: 10px 10px 10px 10px;
+  gap: 15px;
 }
 
 .detailed-popup-body-overview-airports {
@@ -194,7 +255,7 @@
 
 #detailed-popup-body-overview-airports-origin-code {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 2rem;
   font-weight: 600;
 }
 
@@ -215,8 +276,8 @@
 }
 
 .detailed-popup-overview-airports-icon img {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
 }
 
 .detailed-popup-body-overview-airports-destination {
@@ -230,7 +291,7 @@
 
 #detailed-popup-body-overview-airports-destination-code {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 2rem;
   font-weight: 600;
 }
 
@@ -430,8 +491,7 @@
   position: sticky;
   bottom: 0;
   width: 100%;
-  padding: 10px;
-  padding-bottom: 25px;
+  padding: 40px 10px 25px 10px;
   background-color: #242424;
 }
 

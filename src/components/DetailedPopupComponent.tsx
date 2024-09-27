@@ -5,6 +5,10 @@ import photoCredentialsIcon from '../assets/photo-credentials-icon.png'; // http
 import aircraftIconFlight from '../assets/icon-flight-origin-destination.png'; // https://www.iconfinder.com/font-awesome.
 import aircraftIconWhite from '../assets/icon-plane-white.png'; // https://www.flaticon.com/fr/icone-gratuite/avion_5655607?term=avion&page=1&position=3&origin=tag&related_id=5655607.
 import informationIcon from '../assets/information-icon.png'; // https://www.iconfinder.com/DesignRevision.
+import whiteDropdownIcon from '../assets/white-dropdown-icon.png'; // https://www.iconfinder.com/deemakdaksina.
+import whiteLiftupIcon from '../assets/white-liftup-icon.png'; // https://www.iconfinder.com/deemakdaksina.
+import whiteLocationIcon from '../assets/white-location-icon.png'; // https://www.iconfinder.com/font-awesome.
+import whiteDateIcon from '../assets/white-date-icon.png'; // https://www.iconfinder.com/ionicons-icons.
 
 interface DetailedPopupComponentProps {
   flight: any;
@@ -18,6 +22,7 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
 
   const [isVisible, setIsVisible] = useState(show);
   const [isClosing, setIsClosing] = useState(false);
+  const [isExpandedPhoto, setIsExpandedPhoto] = useState(false);
 
   useEffect(() => {
     if (show) {
@@ -34,6 +39,10 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
     }, 300);
   };
 
+  const handleToggleExpandedPhoto = () => {
+    setIsExpandedPhoto(!isExpandedPhoto);
+  };
+
   const getStatusColor = (status: string): string => {
     switch (status.toLowerCase()) {
       case 'on time':
@@ -48,9 +57,6 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
   };
 
   if (!isVisible) return null;
-
-  console.log(flight);
-
 
   return (
     <div className={`detailed-popup ${isClosing ? 'hidden' : ''}`}>
@@ -86,10 +92,29 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
               <img src={selectedFlightPhotoData?.photo.photoUrl} alt={selectedFlightData?.registration} />
             )}
           </div>
-          <div className="detailed-popup-body-image-credentials">
-            <img src={photoCredentialsIcon} alt="Photographer" />
+          <div className={`detailed-popup-body-image-credentials ${isExpandedPhoto ? 'expanded-photo' : ''}`}>
             {selectedFlightPhotoData?.photo.photoData.photographer && (
-              <p id="detailed-popup-body-image-credentials-photographer">Photographer : {selectedFlightPhotoData.photo.photoData.photographer}</p>
+              <div className="detailed-popup-body-image-credentials-photographer">
+                <img src={photoCredentialsIcon} alt="Photographer" />
+                <p id="detailed-popup-body-image-credentials-photographer">Photographer : {selectedFlightPhotoData.photo.photoData.photographer}</p>
+                <span id="detailed-popup-body-image-credentials-photographer-button"
+                  onClick={handleToggleExpandedPhoto}
+                  style={{backgroundImage: isExpandedPhoto ? `url(${whiteLiftupIcon})` : `url(${whiteDropdownIcon})`}}
+                  >
+                </span>
+              </div>
+            )}
+            {selectedFlightPhotoData?.photo.photoData.photographer && isExpandedPhoto && (
+              <div className="detailed-popup-body-image-credentials-expanded">
+                <div className="detailed-popup-body-image-credentials-location">
+                  <img src={whiteLocationIcon} alt="Location" />
+                  <p id="detailed-popup-body-image-credentials-location">Location : {selectedFlightPhotoData.photo.photoData.locationAirport?.slice(0,-3)}</p>
+                </div>
+                <div className="detailed-popup-body-image-credentials-date">
+                  <img src={whiteDateIcon} alt="Date" />
+                  <p id="detailed-popup-body-image-credentials-date">Date : {selectedFlightPhotoData.photo.photoData.date}</p>
+                </div>
+              </div>
             )}
           </div>
         </div>
