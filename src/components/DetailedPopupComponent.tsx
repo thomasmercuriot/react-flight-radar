@@ -189,25 +189,25 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
 
           <div className="detailed-popup-body-about-flight-week-days-grid">
               <div className="detailed-popup-body-about-flight-week-days" id="first-week-day">
-                <p id="monday">MON</p>
+                <p id="monday" className={`${selectedFlightData?.data?.overview?.operationDays?.includes("Mon") ? 'active-days' : ''}`}>MON</p>
               </div>
               <div className="detailed-popup-body-about-flight-week-days">
-                <p id="tuesday">TUE</p>
+                <p id="tuesday" className={`${selectedFlightData?.data?.overview?.operationDays?.includes("Tue") ? 'active-days' : ''}`}>TUE</p>
               </div>
               <div className="detailed-popup-body-about-flight-week-days">
-                <p id="wednesday">WED</p>
+                <p id="wednesday" className={`${selectedFlightData?.data?.overview?.operationDays?.includes("Wed") ? 'active-days' : ''}`}>WED</p>
               </div>
               <div className="detailed-popup-body-about-flight-week-days">
-                <p id="thursday">THU</p>
+                <p id="thursday" className={`${selectedFlightData?.data?.overview?.operationDays?.includes("Thu") ? 'active-days' : ''}`}>THU</p>
               </div>
               <div className="detailed-popup-body-about-flight-week-days">
-                <p id="friday">FRI</p>
+                <p id="friday" className={`${selectedFlightData?.data?.overview?.operationDays?.includes("Fri") ? 'active-days' : ''}`}>FRI</p>
               </div>
               <div className="detailed-popup-body-about-flight-week-days">
-                <p id="saturday">SAT</p>
+                <p id="saturday" className={`${selectedFlightData?.data?.overview?.operationDays?.includes("Sat") ? 'active-days' : ''}`}>SAT</p>
               </div>
               <div className="detailed-popup-body-about-flight-week-days" id="last-week-day">
-                <p id="sunday">SUN</p>
+                <p id="sunday" className={`${selectedFlightData?.data?.overview?.operationDays?.includes("Sun") ? 'active-days' : ''}`}>SUN</p>
               </div>
           </div>
 
