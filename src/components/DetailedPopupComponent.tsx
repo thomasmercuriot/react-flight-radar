@@ -92,13 +92,15 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
               <img src={selectedFlightPhotoData?.photo.photoUrl} alt={selectedFlightData?.registration} />
             )}
           </div>
-          <div className={`detailed-popup-body-image-credentials ${isExpandedPhoto ? 'expanded-photo' : ''}`}>
+          <div
+            className={`detailed-popup-body-image-credentials ${isExpandedPhoto ? 'expanded-photo' : ''}`}
+            onClick={handleToggleExpandedPhoto}
+          >
             {selectedFlightPhotoData?.photo.photoData.photographer && (
               <div className="detailed-popup-body-image-credentials-photographer">
                 <img src={photoCredentialsIcon} alt="Photographer" />
                 <p id="detailed-popup-body-image-credentials-photographer">Photographer : {selectedFlightPhotoData.photo.photoData.photographer}</p>
                 <span id="detailed-popup-body-image-credentials-photographer-button"
-                  onClick={handleToggleExpandedPhoto}
                   style={{backgroundImage: isExpandedPhoto ? `url(${whiteLiftupIcon})` : `url(${whiteDropdownIcon})`}}
                   >
                 </span>
@@ -108,7 +110,11 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
               <div className="detailed-popup-body-image-credentials-expanded">
                 <div className="detailed-popup-body-image-credentials-location">
                   <img src={whiteLocationIcon} alt="Location" />
-                  <p id="detailed-popup-body-image-credentials-location">Location : {selectedFlightPhotoData.photo.photoData.locationAirport?.slice(0,-3)}</p>
+                  <p id="detailed-popup-body-image-credentials-location">
+                    Location : {selectedFlightPhotoData?.photo?.photoData?.locationAirport?.slice(0,-3).length < 30 ?
+                      `${selectedFlightPhotoData?.photo?.photoData?.locationAirport?.slice(0,-3)}` :
+                      `${selectedFlightPhotoData?.photo?.photoData?.locationAirport?.slice(0,30)}...`}
+                  </p>
                 </div>
                 <div className="detailed-popup-body-image-credentials-date">
                   <img src={whiteDateIcon} alt="Date" />
@@ -166,7 +172,10 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
           <div className="detailed-popup-body-overview-status">
             {selectedFlightData?.data.progress.status && (
               <div className="detailed-popup-body-overview-status-estimated-arrival">
-                <p>{selectedFlightData.data.progress.status.charAt(0).toUpperCase() + selectedFlightData.data.progress.status.slice(1).replace(/h\s/, 'h')}</p>
+                <p>{selectedFlightData.data.progress.status.charAt(11) === '1' ?
+                  `${selectedFlightData.data.progress.status.charAt(0).toUpperCase() + selectedFlightData.data.progress.status.slice(1).replace(/h\s/, ' hour and ').replace(/m/, ' minutes')}` :
+                  `${selectedFlightData.data.progress.status.charAt(0).toUpperCase() + selectedFlightData.data.progress.status.slice(1).replace(/h\s/, ' hours and ').replace(/m/, ' minutes')}`}
+                </p>
               </div>
             )}
             {selectedFlightData && (

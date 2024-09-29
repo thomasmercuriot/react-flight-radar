@@ -103,9 +103,9 @@ export interface AircraftPhoto { // Aircraft photo information.
     photoData: {
       registration: string | null;
       alternateRegistration?: string | null; // Optional because some photos may not have this information.
-      aircraftType: string | null; // Aircraft type/model. Might be more detailed than the one in AircraftInfo.
+      aircraftType: string; // Aircraft type/model. Might be more detailed than the one in AircraftInfo.
       aircraftLivery?: string | null; // Optional because some photos may not have this information.
-      locationAirport: string | null; // Location where the photo was taken.
+      locationAirport: string; // Location where the photo was taken.
       locationCountry: string | null; // Country where the photo was taken.
       date: string | null; // Date the photo was taken.
       photographer: string | null; // Photographer's name.
@@ -196,7 +196,9 @@ const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose, onShow
           </div>
           <div className="header-text-lower">
             {additionalFlightData && <p id="header-text-lower-airline">{additionalFlightData.data.overview.airline}</p>}
-            {aircraftPhoto && <p id="header-text-lower-aircraft">{aircraftPhoto.photo.photoData.aircraftType}</p>}
+            {aircraftPhoto && <p id="header-text-lower-aircraft">
+              {aircraftPhoto.photo.photoData.aircraftType?.length > 25 ? aircraftPhoto.photo.photoData.aircraftType.slice(0, 25) + '...' : aircraftPhoto.photo.photoData.aircraftType}
+            </p>}
           </div>
         </div>
         <div className="flight-info-popup-header-right">
@@ -238,7 +240,10 @@ const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose, onShow
           <div className="flight-info-popup-body-top-arrival">
             {additionalFlightData?.data.progress.status && (
               <div className="estimated-arrival">
-                <p>{additionalFlightData.data.progress.status.charAt(0).toUpperCase() + additionalFlightData.data.progress.status.slice(1).replace(/h\s/, 'h')}</p>
+                <p>{additionalFlightData.data.progress.status.charAt(11) === '1' ?
+                  `${additionalFlightData.data.progress.status.charAt(0).toUpperCase() + additionalFlightData.data.progress.status.slice(1).replace(/h\s/, ' hour and ').replace(/m/, ' minutes')}` :
+                  `${additionalFlightData.data.progress.status.charAt(0).toUpperCase() + additionalFlightData.data.progress.status.slice(1).replace(/h\s/, ' hours and ').replace(/m/, ' minutes')}`}
+                </p>
               </div>
             )}
             {additionalFlightData && (
