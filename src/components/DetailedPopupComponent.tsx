@@ -172,7 +172,7 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
           <div className="detailed-popup-body-overview-status">
             {selectedFlightData?.data.progress.status && (
               <div className="detailed-popup-body-overview-status-estimated-arrival">
-                <p>{selectedFlightData.data.progress.status.charAt(11) === '1' ?
+                <p>{selectedFlightData.data.progress.status.charAt(11) === '1' || selectedFlightData.data.progress.status.charAt(16) === '1' ?
                   `${selectedFlightData.data.progress.status.charAt(0).toUpperCase() + selectedFlightData.data.progress.status.slice(1).replace(/h\s/, ' hour and ').replace(/m/, ' minutes')}` :
                   `${selectedFlightData.data.progress.status.charAt(0).toUpperCase() + selectedFlightData.data.progress.status.slice(1).replace(/h\s/, ' hours and ').replace(/m/, ' minutes')}`}
                 </p>

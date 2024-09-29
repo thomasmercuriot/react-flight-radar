@@ -240,7 +240,7 @@ const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose, onShow
           <div className="flight-info-popup-body-top-arrival">
             {additionalFlightData?.data.progress.status && (
               <div className="estimated-arrival">
-                <p>{additionalFlightData.data.progress.status.charAt(11) === '1' ?
+                <p>{additionalFlightData.data.progress.status.charAt(11) === '1' || additionalFlightData.data.progress.status.charAt(16) === '1' ?
                   `${additionalFlightData.data.progress.status.charAt(0).toUpperCase() + additionalFlightData.data.progress.status.slice(1).replace(/h\s/, ' hour and ').replace(/m/, ' minutes')}` :
                   `${additionalFlightData.data.progress.status.charAt(0).toUpperCase() + additionalFlightData.data.progress.status.slice(1).replace(/h\s/, ' hours and ').replace(/m/, ' minutes')}`}
                 </p>
