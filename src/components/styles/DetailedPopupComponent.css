@@ -1049,19 +1049,169 @@
   font-style: italic;
 }
 
+.detailed-popup-body-aircraft {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  margin: 0;
+  gap: 2px;
+}
 
+.detailed-popup-body-aircraft-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border-radius: 10px 10px 0 0;
+  background-color: #1A1A1A;
+  padding: 10px;
+  gap: 10px;
+}
 
+.detailed-popup-body-aircraft-title-text {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
 
+#detailed-popup-body-aircraft-title-text {
+  margin: 0;
+  font-size: 1rem;
+}
 
+.detailed-popup-body-aircraft-title-line {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 
+.detailed-popup-body-aircraft-grid {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  gap: 2px;
+}
 
+.detailed-popup-body-aircraft-grid-type {
+  display: flex;
+  flex-direction: column;
+  background-color: #1A1A1A;
+  padding: 10px;
+}
 
+#detailed-popup-body-aircraft-grid-type-text {
+  margin: 0;
+  font-size: 0.8rem;
+}
 
+#detailed-popup-body-aircraft-grid-type-value {
+  margin: 0;
+  font-size: 0.8rem;
+  font-style: italic;
+}
 
+.detailed-popup-body-aircraft-grid-make {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1A1A1A;
+  padding: 10px;
+}
 
+.detailed-popup-body-aircraft-grid-airline {
+  display: flex;
+  flex-direction: column;
+  background-color: #1A1A1A;
+  padding: 10px;
+}
 
+#detailed-popup-body-aircraft-grid-airline-text {
+  margin: 0;
+  font-size: 0.8rem;
+}
 
+#detailed-popup-body-aircraft-grid-airline-value {
+  margin: 0;
+  font-size: 0.8rem;
+  font-style: italic;
+}
 
+.detailed-popup-body-aircraft-grid-airline-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1A1A1A;
+  padding: 10px;
+}
+
+.detailed-popup-body-aircraft-livery {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #1A1A1A;
+  padding: 10px;
+}
+
+#detailed-popup-body-aircraft-livery-text {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-body-aircraft-livery-value {
+  margin: 0;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.detailed-popup-body-aircraft-grid-numbers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+.detailed-popup-body-aircraft-grid-numbers-icao {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #1A1A1A;
+  padding: 10px;
+  border-radius: 0 0 0 10px;
+}
+
+#detailed-popup-body-aircraft-grid-numbers-icao-text {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-body-aircraft-grid-numbers-icao-value {
+  margin: 0;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.detailed-popup-body-aircraft-grid-numbers-serial {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #1A1A1A;
+  padding: 10px;
+  border-radius: 0 0 10px 0;
+}
+
+#detailed-popup-body-aircraft-grid-numbers-serial-text {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-body-aircraft-grid-numbers-serial-value {
+  margin: 0;
+  font-size: 0.8rem;
+  font-style: italic;
+}
 
 
 
@@ -1084,7 +1234,7 @@
   position: sticky;
   bottom: 0;
   width: 100%;
-  padding: 40px 10px 25px 10px;
+  padding: 25px 10px 25px 10px;
   background-color: #242424;
 }
 

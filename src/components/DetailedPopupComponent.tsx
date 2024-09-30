@@ -10,6 +10,8 @@ import whiteLiftupIcon from '../assets/white-liftup-icon.png'; // https://www.ic
 import whiteLocationIcon from '../assets/white-location-icon.png'; // https://www.iconfinder.com/font-awesome.
 import whiteDateIcon from '../assets/white-date-icon.png'; // https://www.iconfinder.com/ionicons-icons.
 import whiteLineIcon from '../assets/white-line-icon.png'; // https://www.iconfinder.com/deemakdaksina.
+import airbusLogo from '../assets/airbus-logo.png'; // https://www.airbus.com.
+import boeingLogo from '../assets/boeing-logo.png'; // https://www.boeing.com.
 
 interface DetailedPopupComponentProps {
   flight: any;
@@ -467,6 +469,89 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
             </div>
           </div>
         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div className="detailed-popup-body-aircraft">
+          <div className="detailed-popup-body-aircraft-title">
+            <div className="detailed-popup-body-aircraft-title-text">
+              <img src={informationIcon} alt="Aircraft" style={{width: '15px', height: '15px'}} />
+              {selectedFlightData?.registration && (
+                <p id="detailed-popup-body-aircraft-title-text" >About {selectedFlightData.registration}</p>
+              )}
+            </div>
+            <div className="detailed-popup-body-aircraft-title-line">
+              <img src={whiteLineIcon} alt="Aircraft" style={{width: '15px', height: '15px'}} />
+            </div>
+          </div>
+          <div className="detailed-popup-body-aircraft-grid">
+            <div className="detailed-popup-body-aircraft-grid-type">
+              <p id="detailed-popup-body-aircraft-grid-type-text" >Aircraft Type</p>
+              {selectedFlightPhotoData?.photo.photoData.aircraftType && (
+                <p id="detailed-popup-body-aircraft-grid-type-value" >{selectedFlightPhotoData.photo.photoData.aircraftType}</p>
+              )}
+            </div>
+            <div className="detailed-popup-body-aircraft-grid-make">
+              {selectedFlightPhotoData?.photo.photoData.aircraftType.includes('Boeing') && (
+                <img src={boeingLogo} alt="Boeing" style={{width: 'auto', height: '30px'}} />
+              )}
+              {selectedFlightPhotoData?.photo.photoData.aircraftType.includes('Airbus') && (
+                <img src={airbusLogo} alt="Airbus" style={{width: 'auto', height: '30px'}} />
+              )}
+            </div>
+            <div className="detailed-popup-body-aircraft-grid-airline">
+              <p id="detailed-popup-body-aircraft-grid-airline-text" >Airline</p>
+              {selectedFlightData?.data.overview.airline && (
+                <p id="detailed-popup-body-aircraft-grid-airline-value" >{selectedFlightData.data.overview.airline}</p>
+              )}
+            </div>
+            <div className="detailed-popup-body-aircraft-grid-airline-logo">
+              <p>(Logo)</p>
+            </div>
+          </div>
+          {selectedFlightPhotoData?.photo.photoData.aircraftLivery && (
+            <div className="detailed-popup-body-aircraft-livery">
+              <p id="detailed-popup-body-aircraft-livery-text" >Special Livery : </p>
+              <p id="detailed-popup-body-aircraft-livery-value" >{selectedFlightPhotoData.photo.photoData.aircraftLivery}</p>
+            </div>
+          )}
+          <div className="detailed-popup-body-aircraft-grid-numbers">
+            <div className="detailed-popup-body-aircraft-grid-numbers-icao">
+              <p id="detailed-popup-body-aircraft-grid-numbers-icao-text" >ICAO24 : </p>
+              {selectedFlightData?.data.aircraft.transponder && (
+                <p id="detailed-popup-body-aircraft-grid-numbers-icao-value" >{selectedFlightData.data.aircraft.transponder}</p>
+              )}
+            </div>
+            <div className="detailed-popup-body-aircraft-grid-numbers-serial">
+              <p id="detailed-popup-body-aircraft-grid-numbers-serial-text" >Serial No. : </p>
+              {selectedFlightData?.data.aircraft.serial && (
+                <p id="detailed-popup-body-aircraft-grid-numbers-serial-value" >{selectedFlightData.data.aircraft.serial}</p>
+              )}
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
