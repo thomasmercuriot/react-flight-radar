@@ -50,7 +50,7 @@ interface FlightTime { // Departure and arrival times.
   estimated?: string | null; // Optional because it may not always be available.
   timezone: string | null; // Timezone.
   terminal: string | null; // Terminal number.
-  gate: string | null; // Gate number.
+  gate: string; // Gate number.
   status: string; // Departed, landed, cancelled, etc.
 }
 

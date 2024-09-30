@@ -13,7 +13,7 @@
   transform: translateY(100%);
   animation: slideUp 0.3s ease-out forwards;
   animation-delay: 0.3s;
-  overflow-y: scroll;
+  overflow-y: hidden;
   overflow-x: hidden;
 }
 
@@ -114,7 +114,11 @@
   flex-direction: column;
   gap: 10px;
   padding: 10px;
+  height: 80%;
   overflow-y: scroll;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  padding-bottom: 50px;
 }
 
 .detailed-popup-body-image-container {
@@ -161,9 +165,16 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  /* justify-content: space-between; */
+  justify-content: space-between;
   gap: 5px;
   width: 100%;
+}
+
+.detailed-popup-body-image-credentials-photographer-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
 }
 
 .detailed-popup-body-image-credentials img {
@@ -188,7 +199,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed;
   right: 20px;
   width: 15px;
   height: 15px;
@@ -372,7 +382,7 @@
 .detailed-popup-body-overview-status p {
   margin: 0;
   font-size: 0.8rem;
-  font-weight: 400;
+  font-style: italic;
 }
 
 .detailed-popup-body-overview-status-estimated-arrival {
@@ -679,29 +689,6 @@
   font-style: italic;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .detailed-popup-body-about-flight-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -781,6 +768,306 @@
 .active-days {
   color: orange;
 }
+
+.detailed-popup-body-departure {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  margin: 0;
+  gap: 2px;
+}
+
+.detailed-popup-body-departure-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: auto;
+  width: 100%;
+  border-radius: 10px 10px 0 0;
+  background-color: #1A1A1A;
+  padding: 10px;
+  gap: 10px;
+}
+
+.detailed-popup-body-departure-title-text {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+#detailed-popup-body-departure-title-text {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.detailed-popup-body-departure-title-status {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
+.detailed-popup-body-departure-title-status p {
+  margin: 0;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.detailed-popup-body-departure-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+.detailed-popup-body-departure-scheduled {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: auto;
+  background-color: #1A1A1A;
+  padding: 10px;
+}
+
+#detailed-popup-body-departure-scheduled-text {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-body-departure-scheduled-value {
+  margin: 0;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.detailed-popup-body-departure-departed {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: auto;
+  background-color: #1A1A1A;
+  padding: 10px;
+}
+
+#detailed-popup-body-departure-departed-text {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-body-departure-departed-value {
+  margin: 0;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.detailed-popup-body-departure-terminal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: auto;
+  background-color: #1A1A1A;
+  padding: 10px;
+  border-radius: 0 0 0 10px;
+}
+
+#detailed-popup-body-departure-terminal-text {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-body-departure-terminal-value {
+  margin: 0;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.detailed-popup-body-departure-gate {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: auto;
+  background-color: #1A1A1A;
+  padding: 10px;
+  border-radius: 0 0 10px 0;
+}
+
+#detailed-popup-body-departure-gate-text {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-body-departure-gate-value {
+  margin: 0;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.detailed-popup-body-arrival {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  margin: 0;
+  gap: 2px;
+}
+
+.detailed-popup-body-arrival-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: auto;
+  width: 100%;
+  border-radius: 10px 10px 0 0;
+  background-color: #1A1A1A;
+  padding: 10px;
+  gap: 10px;
+}
+
+.detailed-popup-body-arrival-title-text {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+#detailed-popup-body-arrival-title-text {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.detailed-popup-body-arrival-title-status {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
+.detailed-popup-body-arrival-title-status p {
+  margin: 0;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.detailed-popup-body-arrival-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+.detailed-popup-body-arrival-scheduled {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: auto;
+  background-color: #1A1A1A;
+  padding: 10px;
+}
+
+#detailed-popup-body-arrival-scheduled-text {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-body-arrival-scheduled-value {
+  margin: 0;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.detailed-popup-body-arrival-departed {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: auto;
+  background-color: #1A1A1A;
+  padding: 10px;
+}
+
+#detailed-popup-body-arrival-departed-text {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-body-arrival-departed-value {
+  margin: 0;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.detailed-popup-body-arrival-terminal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: auto;
+  background-color: #1A1A1A;
+  padding: 10px;
+  border-radius: 0 0 0 10px;
+}
+
+#detailed-popup-body-arrival-terminal-text {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-body-arrival-terminal-value {
+  margin: 0;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.detailed-popup-body-arrival-gate {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: auto;
+  background-color: #1A1A1A;
+  padding: 10px;
+  border-radius: 0 0 10px 0;
+}
+
+#detailed-popup-body-arrival-gate-text {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-body-arrival-gate-value {
+  margin: 0;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

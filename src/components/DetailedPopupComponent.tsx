@@ -108,9 +108,11 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
           >
             {selectedFlightPhotoData?.photo.photoData.photographer && (
               <div className="detailed-popup-body-image-credentials-photographer">
-                <img src={photoCredentialsIcon} alt="Photographer" />
-                <p id="detailed-popup-body-image-credentials-photographer">Photographer :</p>
-                <p id="detailed-popup-body-image-credentials-photographer-value">{selectedFlightPhotoData.photo.photoData.photographer}</p>
+                <div className="detailed-popup-body-image-credentials-photographer-left">
+                  <img src={photoCredentialsIcon} alt="Photographer" />
+                  <p id="detailed-popup-body-image-credentials-photographer">Photographer :</p>
+                  <p id="detailed-popup-body-image-credentials-photographer-value">{selectedFlightPhotoData.photo.photoData.photographer}</p>
+                </div>
                 <span id="detailed-popup-body-image-credentials-photographer-button"
                   style={{backgroundImage: isExpandedPhoto ? `url(${whiteLiftupIcon})` : `url(${whiteDropdownIcon})`}}
                   >
@@ -306,9 +308,9 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
               <p id="detailed-popup-body-about-flight-grid-from-text" >From : </p>
               {selectedFlightData?.data.origin.airport && (
                 <p id="detailed-popup-body-about-flight-grid-from-value" >
-                  {selectedFlightData?.data?.origin?.airport?.length < 45 ?
+                  {selectedFlightData?.data?.origin?.airport?.length < 40 ?
                     `${selectedFlightData.data.origin.airport} ${selectedFlightData.data.origin.code}` :
-                    `${selectedFlightData.data.origin.airport.slice(0,45)}... ${selectedFlightData.data.origin.code}`
+                    `${selectedFlightData.data.origin.airport.slice(0,40)}... ${selectedFlightData.data.origin.code}`
                   }
                 </p>
               )}
@@ -367,6 +369,105 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
               </div>
           </div>
         </div>
+
+
+
+        <div className="detailed-popup-body-departure">
+          <div className="detailed-popup-body-departure-title">
+            <div className="detailed-popup-body-departure-title-text">
+              <img src={informationIcon} alt="Departure" style={{width: '15px', height: '15px'}} />
+              <p id="detailed-popup-body-departure-title-text">Departure</p>
+            </div>
+            <div className="detailed-popup-body-departure-title-status">
+              <img src={whiteLineIcon} alt="Departure" style={{width: '15px', height: '15px'}} />
+            </div>
+          </div>
+          <div className="detailed-popup-body-departure-grid">
+            <div className="detailed-popup-body-departure-scheduled">
+              <p id="detailed-popup-body-departure-scheduled-text">Scheduled : </p>
+              {selectedFlightData?.data.departure.scheduled && (
+                <p id="detailed-popup-body-departure-scheduled-value">{selectedFlightData.data.departure.scheduled} {selectedFlightData?.data?.departure?.timezone?.match(/\(UTC[-+]?\d{2}:\d{2}\)/)?.[0].slice(0,7)}...</p>
+              )}
+            </div>
+            <div className="detailed-popup-body-departure-departed">
+              <p id="detailed-popup-body-departure-departed-text">Departed : </p>
+              {selectedFlightData?.data.departure.departed && (
+                <p id="detailed-popup-body-departure-departed-value">{selectedFlightData.data.departure.departed} {selectedFlightData?.data?.departure?.timezone?.match(/\(UTC[-+]?\d{2}:\d{2}\)/)?.[0].slice(0,7)}...</p>
+              )}
+            </div>
+            <div className="detailed-popup-body-departure-terminal">
+              <p id="detailed-popup-body-departure-terminal-text">Terminal : </p>
+              <p id="detailed-popup-body-departure-terminal-value">
+                {selectedFlightData?.data?.departure?.terminal === undefined ?
+                  'N/A'
+                  :
+                  selectedFlightData?.data.departure.terminal
+                }
+              </p>
+            </div>
+            <div className="detailed-popup-body-departure-gate">
+              <p id="detailed-popup-body-departure-gate-text">Gate : </p>
+              <p id="detailed-popup-body-departure-gate-value">
+                {selectedFlightData?.data?.departure?.gate === '-' || (selectedFlightData?.data?.departure?.gate.length && selectedFlightData?.data?.departure?.gate.length > 5) ?
+                  'N/A'
+                  :
+                  selectedFlightData?.data.departure.gate
+                }
+              </p>
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <div className="detailed-popup-body-arrival">
+          <div className="detailed-popup-body-arrival-title">
+            <div className="detailed-popup-body-arrival-title-text">
+              <img src={informationIcon} alt="arrival" style={{width: '15px', height: '15px'}} />
+              <p id="detailed-popup-body-arrival-title-text">Arrival</p>
+            </div>
+            <div className="detailed-popup-body-arrival-title-status">
+              {selectedFlightData?.data.arrival.status && (
+                <p style={{ color: getStatusColor(selectedFlightData.data.arrival.status) }}>●</p>
+              )}
+              <p>{selectedFlightData?.data.arrival.status}</p>
+            </div>
+          </div>
+          <div className="detailed-popup-body-arrival-grid">
+            <div className="detailed-popup-body-arrival-scheduled">
+              <p id="detailed-popup-body-arrival-scheduled-text">Scheduled : </p>
+              {selectedFlightData?.data.arrival.scheduled && (
+                <p id="detailed-popup-body-arrival-scheduled-value">{selectedFlightData.data.arrival.scheduled} {selectedFlightData?.data?.arrival?.timezone?.match(/\(UTC[-+]?\d{2}:\d{2}\)/)?.[0].slice(0,7)}...</p>
+              )}
+            </div>
+            <div className="detailed-popup-body-arrival-departed">
+              <p id="detailed-popup-body-arrival-departed-text">Landed : </p>
+                <p id="detailed-popup-body-arrival-departed-value">N/A {selectedFlightData?.data?.arrival?.timezone?.match(/\(UTC[-+]?\d{2}:\d{2}\)/)?.[0]}</p>
+            </div>
+            <div className="detailed-popup-body-arrival-terminal">
+              <p id="detailed-popup-body-arrival-terminal-text">Terminal : </p>
+              <p id="detailed-popup-body-arrival-terminal-value">
+                {selectedFlightData?.data?.arrival?.terminal === undefined ?
+                  'N/A'
+                  :
+                  selectedFlightData?.data.arrival.terminal
+                }
+              </p>
+            </div>
+            <div className="detailed-popup-body-arrival-gate">
+              <p id="detailed-popup-body-arrival-gate-text">Gate : </p>
+              <p id="detailed-popup-body-arrival-gate-value">
+                {selectedFlightData?.data?.arrival?.gate === '-' || (selectedFlightData?.data?.arrival?.gate.length && selectedFlightData?.data?.arrival?.gate.length > 5) ?
+                  'N/A'
+                  :
+                  selectedFlightData?.data.arrival.gate
+                }
+              </p>
+            </div>
+          </div>
+        </div>
+
 
 
 
