@@ -121,6 +121,10 @@
   padding-bottom: 50px;
 }
 
+.detailed-popup-body::-webkit-scrollbar {
+  display: none;
+}
+
 .detailed-popup-body-image-container {
   display: flex;
   flex-direction: column;
