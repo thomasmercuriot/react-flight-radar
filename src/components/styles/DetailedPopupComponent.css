@@ -377,12 +377,218 @@
   font-weight: 400;
 }
 
+.detailed-popup-body-virtual-cockpit {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  margin: 0;
+  gap: 2px;
+}
+
+.detailed-popup-body-virtual-cockpit-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: auto;
+  border-radius: 10px 10px 0 0;
+  background-color: #1A1A1A;
+  padding: 10px;
+  gap: 10px;
+}
+
+.detailed-popup-body-virtual-cockpit-title-text {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
+#detailed-popup-body-virtual-cockpit-title-text {
+  margin: 0;
+  font-size: 1rem;
+}
+
+#detailed-popup-body-virtual-cockpit-title-last-contact {
+  margin: 0;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.detailed-popup-body-virtual-cockpit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+.detailed-popup-body-virtual-cockpit-grid-longitude {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  background-color: #1A1A1A;
+  padding: 10px;
+}
+
+#detailed-popup-body-virtual-cockpit-grid-longitude-text {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-body-virtual-cockpit-grid-longitude-value {
+  margin: 0;
+  font-size: 0.8rem;
+  align-self: flex-end;
+  font-style: italic;
+}
+
+.detailed-popup-body-virtual-cockpit-grid-latitude {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  background-color: #1A1A1A;
+  padding: 10px;
+}
+
+#detailed-popup-body-virtual-cockpit-grid-latitude-text {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-body-virtual-cockpit-grid-latitude-value {
+  margin: 0;
+  font-size: 0.8rem;
+  align-self: flex-end;
+  font-style: italic;
+}
+
+.detailed-popup-body-virtual-cockpit-grid-baro-altitude {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  background-color: #1A1A1A;
+  padding: 10px;
+}
+
+#detailed-popup-body-virtual-cockpit-grid-baro-altitude-text {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-body-virtual-cockpit-grid-baro-altitude-value {
+  margin: 0;
+  font-size: 0.8rem;
+  align-self: flex-end;
+  font-style: italic;
+}
+
+.detailed-popup-body-virtual-cockpit-grid-geo-altitude {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  background-color: #1A1A1A;
+  padding: 10px;
+}
+
+#detailed-popup-body-virtual-cockpit-grid-geo-altitude-text {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-body-virtual-cockpit-grid-geo-altitude-value {
+  margin: 0;
+  font-size: 0.8rem;
+  align-self: flex-end;
+  font-style: italic;
+}
+
+.detailed-popup-body-virtual-cockpit-grid-velocity {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  background-color: #1A1A1A;
+  padding: 10px;
+}
+
+#detailed-popup-body-virtual-cockpit-grid-velocity-text {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-body-virtual-cockpit-grid-velocity-value {
+  margin: 0;
+  font-size: 0.8rem;
+  align-self: flex-end;
+  font-style: italic;
+}
+
+.detailed-popup-body-virtual-cockpit-grid-vertical-rate {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  background-color: #1A1A1A;
+  padding: 10px;
+}
+
+#detailed-popup-body-virtual-cockpit-grid-vertical-rate-text {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-body-virtual-cockpit-grid-vertical-rate-value {
+  margin: 0;
+  font-size: 0.8rem;
+  align-self: flex-end;
+  font-style: italic;
+}
+
+.detailed-popup-body-virtual-cockpit-grid-true-track {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  background-color: #1A1A1A;
+  padding: 10px;
+  border-radius: 0 0 0 10px;
+}
+
+#detailed-popup-body-virtual-cockpit-grid-true-track-text {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-body-virtual-cockpit-grid-true-track-value {
+  margin: 0;
+  font-size: 0.8rem;
+  align-self: flex-end;
+  font-style: italic;
+}
+
+.detailed-popup-body-virtual-cockpit-grid-squawk {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  background-color: #1A1A1A;
+  padding: 10px;
+  border-radius: 0 0 10px 0;
+}
+
+#detailed-popup-body-virtual-cockpit-grid-squawk-text {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-body-virtual-cockpit-grid-squawk-value {
+  margin: 0;
+  font-size: 0.8rem;
+  align-self: flex-end;
+  font-style: italic;
+}
+
 .detailed-popup-body-about-flight {
   display: flex;
   flex-direction: column;
   height: auto;
   margin: 0;
-  gap: 5px;
+  gap: 2px;
 }
 
 .detailed-popup-body-about-flight-title {
@@ -390,6 +596,7 @@
   flex-direction: row;
   align-items: center;
   height: auto;
+  width: 100%;
   border-radius: 10px 10px 0 0;
   background-color: #1A1A1A;
   padding: 10px;
@@ -404,12 +611,17 @@
 #detailed-popup-body-about-flight-title-text {
   margin: 0;
   font-size: 1rem;
+  width: 100%;
+}
+
+#detailed-popup-body-about-flight-title-line {
+  align-self: flex-end;
 }
 
 .detailed-popup-body-about-flight-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 5px;
+  gap: 2px;
 }
 
 .detailed-popup-body-about-flight-grid-duration {
@@ -455,7 +667,7 @@
 .detailed-popup-body-about-flight-week-days-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 5px;
+  gap: 2px;
 }
 
 .detailed-popup-body-about-flight-week-days {
