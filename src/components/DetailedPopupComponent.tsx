@@ -109,7 +109,8 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
             {selectedFlightPhotoData?.photo.photoData.photographer && (
               <div className="detailed-popup-body-image-credentials-photographer">
                 <img src={photoCredentialsIcon} alt="Photographer" />
-                <p id="detailed-popup-body-image-credentials-photographer">Photographer : {selectedFlightPhotoData.photo.photoData.photographer}</p>
+                <p id="detailed-popup-body-image-credentials-photographer">Photographer :</p>
+                <p id="detailed-popup-body-image-credentials-photographer-value">{selectedFlightPhotoData.photo.photoData.photographer}</p>
                 <span id="detailed-popup-body-image-credentials-photographer-button"
                   style={{backgroundImage: isExpandedPhoto ? `url(${whiteLiftupIcon})` : `url(${whiteDropdownIcon})`}}
                   >
@@ -120,15 +121,17 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
               <div className="detailed-popup-body-image-credentials-expanded">
                 <div className="detailed-popup-body-image-credentials-location">
                   <img src={whiteLocationIcon} alt="Location" />
-                  <p id="detailed-popup-body-image-credentials-location">
-                    Location : {selectedFlightPhotoData?.photo?.photoData?.locationAirport?.slice(0,-3).length < 30 ?
+                  <p id="detailed-popup-body-image-credentials-location">Location : </p>
+                  <p id="detailed-popup-body-image-credentials-location-value">
+                    {selectedFlightPhotoData?.photo?.photoData?.locationAirport?.slice(0,-3).length < 30 ?
                       `${selectedFlightPhotoData?.photo?.photoData?.locationAirport?.slice(0,-3)}` :
                       `${selectedFlightPhotoData?.photo?.photoData?.locationAirport?.slice(0,30)}...`}
                   </p>
                 </div>
                 <div className="detailed-popup-body-image-credentials-date">
                   <img src={whiteDateIcon} alt="Date" />
-                  <p id="detailed-popup-body-image-credentials-date">Date : {selectedFlightPhotoData.photo.photoData.date}</p>
+                  <p id="detailed-popup-body-image-credentials-date">Date : </p>
+                  <p id="detailed-popup-body-image-credentials-date-value">{selectedFlightPhotoData.photo.photoData.date}</p>
                 </div>
               </div>
             )}
@@ -258,9 +261,14 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
               </div>
               <div className="detailed-popup-body-virtual-cockpit-grid-vertical-rate">
                 <p id="detailed-popup-body-virtual-cockpit-grid-vertical-rate-text" >Vertical Speed</p>
-                {flight?.vertical_rate && (
+                {flight?.vertical_rate !== 0 && (
                   <p id="detailed-popup-body-virtual-cockpit-grid-vertical-rate-value" >
                     {flight.vertical_rate} m/s | {Math.floor(flight.vertical_rate * 196.850394)} ft/min
+                  </p>
+                )}
+                {flight?.vertical_rate === 0 && (
+                  <p id="detailed-popup-body-virtual-cockpit-grid-vertical-rate-value" >
+                    0 m/s | 0 ft/min
                   </p>
                 )}
               </div>
@@ -284,7 +292,6 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
           </div>
 
         <div className="detailed-popup-body-about-flight">
-
           <div className="detailed-popup-body-about-flight-title">
             <img src={informationIcon} alt="Information Icon" />
             {selectedFlightData?.data.overview.airline && selectedFlightData?.data.thisFlight.flightNumber && (
@@ -294,7 +301,30 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
             )}
             <img id="detailed-popup-body-about-flight-title-line" src={whiteLineIcon} alt="About Flight" style={{width: '15px', height: '15px'}} />
           </div>
-
+          <div className="detailed-popup-body-about-flight-grid-to-from">
+            <div className="detailed-popup-body-about-flight-grid-from">
+              <p id="detailed-popup-body-about-flight-grid-from-text" >From : </p>
+              {selectedFlightData?.data.origin.airport && (
+                <p id="detailed-popup-body-about-flight-grid-from-value" >
+                  {selectedFlightData?.data?.origin?.airport?.length < 45 ?
+                    `${selectedFlightData.data.origin.airport} ${selectedFlightData.data.origin.code}` :
+                    `${selectedFlightData.data.origin.airport.slice(0,45)}... ${selectedFlightData.data.origin.code}`
+                  }
+                </p>
+              )}
+            </div>
+            <div className="detailed-popup-body-about-flight-grid-to">
+              <p id="detailed-popup-body-about-flight-grid-to-text" >To : </p>
+              {selectedFlightData?.data.destination.airport && (
+                <p id="detailed-popup-body-about-flight-grid-to-value" >
+                  {selectedFlightData?.data?.destination?.airport?.length < 45 ?
+                    `${selectedFlightData.data.destination.airport} ${selectedFlightData.data.destination.code}` :
+                    `${selectedFlightData.data.destination.airport.slice(0,45)}... ${selectedFlightData.data.destination.code}`
+                  }
+                </p>
+              )}
+            </div>
+          </div>
           <div className="detailed-popup-body-about-flight-grid">
             <div className="detailed-popup-body-about-flight-grid-duration">
               <p id="detailed-popup-body-about-flight-grid-duration-text" >Avg. Duration : </p>
@@ -313,7 +343,6 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
               )}
             </div>
           </div>
-
           <div className="detailed-popup-body-about-flight-week-days-grid">
               <div className="detailed-popup-body-about-flight-week-days" id="first-week-day">
                 <p id="monday" className={`${selectedFlightData?.data?.overview?.operationDays?.includes("Mon") ? 'active-days' : ''}`}>MON</p>
@@ -337,8 +366,8 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
                 <p id="sunday" className={`${selectedFlightData?.data?.overview?.operationDays?.includes("Sun") ? 'active-days' : ''}`}>SUN</p>
               </div>
           </div>
-
         </div>
+
 
 
 

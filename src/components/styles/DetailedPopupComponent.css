@@ -175,7 +175,13 @@
   margin: 0;
   color: white;
   font-size: 0.8rem;
-  font-weight: 400;
+}
+
+#detailed-popup-body-image-credentials-photographer-value {
+  margin: 0;
+  color: white;
+  font-size: 0.8rem;
+  font-style: italic;
 }
 
 #detailed-popup-body-image-credentials-photographer-button {
@@ -208,10 +214,12 @@
   font-size: 0.8rem;
   font-weight: 400;
   margin: 0;
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  -webkit-text-overflow: ellipsis;
+}
+
+#detailed-popup-body-image-credentials-location-value {
+  font-size: 0.8rem;
+  margin: 0;
+  font-style: italic;
 }
 
 .detailed-popup-body-image-credentials-date {
@@ -223,8 +231,13 @@
 
 #detailed-popup-body-image-credentials-date {
   font-size: 0.8rem;
-  font-weight: 400;
   margin: 0;
+}
+
+#detailed-popup-body-image-credentials-date-value {
+  font-size: 0.8rem;
+  margin: 0;
+  font-style: italic;
 }
 
 .detailed-popup-body-overview {
@@ -618,6 +631,77 @@
   align-self: flex-end;
 }
 
+.detailed-popup-body-about-flight-grid-to-from {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.detailed-popup-body-about-flight-grid-from {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: auto;
+  background-color: #1A1A1A;
+  padding: 10px;
+}
+
+#detailed-popup-body-about-flight-grid-from-text {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-body-about-flight-grid-from-value {
+  margin: 0;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.detailed-popup-body-about-flight-grid-to {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: auto;
+  background-color: #1A1A1A;
+  padding: 10px;
+}
+
+#detailed-popup-body-about-flight-grid-to-text {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-body-about-flight-grid-to-value {
+  margin: 0;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .detailed-popup-body-about-flight-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -642,6 +726,7 @@
 #detailed-popup-body-about-flight-grid-duration-value {
   margin: 0;
   font-size: 0.8rem;
+  font-style: italic;
 }
 
 .detailed-popup-body-about-flight-grid-distance {
@@ -662,6 +747,7 @@
 #detailed-popup-body-about-flight-grid-distance-value {
   margin: 0;
   font-size: 0.8rem;
+  font-style: italic;
 }
 
 .detailed-popup-body-about-flight-week-days-grid {
