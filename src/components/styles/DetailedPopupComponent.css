@@ -1213,10 +1213,194 @@
   font-style: italic;
 }
 
+.detailed-popup-body-flight-history {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  margin: 0;
+  gap: 1px;
+}
 
+.detailed-popup-body-flight-history-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border-radius: 10px 10px 0 0;
+  background-color: #1A1A1A;
+  padding: 10px;
+  gap: 10px;
+  cursor: pointer;
+}
 
+.detailed-popup-body-flight-history-title-text {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
 
+.detailed-popup-body-flight-history-title-text-div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
 
+#detailed-popup-body-flight-history-title-text {
+  margin: 0;
+  font-size: 1rem;
+}
+
+#detailed-popup-body-flight-history-title-text-italic {
+  margin: 0;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.detailed-popup-body-flight-history-title-line {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.detailed-popup-body-flight-history-table {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s ease;
+}
+
+.detailed-popup-body-flight-history-table.expanded {
+  height: auto;
+}
+
+.detailed-popup-body-flight-history-table-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.detailed-popup-body-flight-history-table-row-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  background-color: #1A1A1A;
+  padding: 10px;
+}
+
+#detailed-popup-body-flight-history-table-row-title-date {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.detailed-popup-body-flight-history-table-row-title-callsign {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
+#detailed-popup-body-flight-history-table-row-title-callsign {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-body-flight-history-table-row-title-delay-value {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.detailed-popup-body-flight-history-table-row-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
+  gap: 2px;
+}
+
+.detailed-popup-body-flight-history-table-row-grid-origin {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #1A1A1A;
+  padding: 10px;
+}
+
+#detailed-popup-body-flight-history-table-row-grid-origin-text {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-body-flight-history-table-row-grid-origin-value {
+  margin: 0;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.detailed-popup-body-flight-history-table-row-grid-destination {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #1A1A1A;
+  padding: 10px;
+}
+
+#detailed-popup-body-flight-history-table-row-grid-destination-text {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-body-flight-history-table-row-grid-destination-value {
+  margin: 0;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.detailed-popup-body-flight-history-table-row-grid-duration {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #1A1A1A;
+  padding: 10px;
+}
+
+#detailed-popup-body-flight-history-table-row-grid-duration-text {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-body-flight-history-table-row-grid-duration-value {
+  margin: 0;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.detailed-popup-body-flight-history-footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border-radius: 0 0 10px 10px;
+  background-color: #1A1A1A;
+  padding: 10px;
+  gap: 10px;
+}
+
+#detailed-popup-body-flight-history-footer-text {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+#detailed-popup-body-flight-history-footer-value {
+  margin: 0;
+  font-size: 0.8rem;
+  font-style: italic;
+}
 
 
 

@@ -26,7 +26,8 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
   const [isVisible, setIsVisible] = useState(show);
   const [isClosing, setIsClosing] = useState(false);
   const [isExpandedPhoto, setIsExpandedPhoto] = useState(false);
-  const [startTime] = useState(flight.last_contact);
+  const [isExpandedHistory, setIsExpandedHistory] = useState(false);
+  const [startTime] = useState(flight.last_contact ?? 0);
   const [currentTime, setCurrentTime] = useState(0);
 
   useEffect(() => {
@@ -47,6 +48,10 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
   const handleToggleExpandedPhoto = () => {
     setIsExpandedPhoto(!isExpandedPhoto);
   };
+
+  const handleToggleExpandedHistory = () => {
+    setIsExpandedHistory(!isExpandedHistory);
+  }
 
   const getStatusColor = (status: string): string => {
     switch (status.toLowerCase()) {
@@ -72,6 +77,8 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
 
   return (
     <div className={`detailed-popup ${isClosing ? 'hidden' : ''}`}>
+
+
       <div className="detailed-popup-banner">
         <div className="detailed-popup-banner-upper">
           {flight.callsign && (
@@ -97,7 +104,11 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
           )}
         </div>
       </div>
+
+
       <div className="detailed-popup-body">
+
+
         <div className="detailed-popup-body-image-container">
           <div className="detailed-popup-body-image">
             {selectedFlightPhotoData?.photo.photoUrl && (
@@ -141,6 +152,8 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
             )}
           </div>
         </div>
+
+
         <div className="detailed-popup-body-overview">
           <div className="detailed-popup-body-overview-airports">
             <div className="detailed-popup-body-overview-airports-origin">
@@ -189,7 +202,7 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
           <div className="detailed-popup-body-overview-status">
             {selectedFlightData?.data.progress.status && (
               <div className="detailed-popup-body-overview-status-estimated-arrival">
-                <p>{selectedFlightData.data.progress.status.charAt(11) === '1' || selectedFlightData.data.progress.status.charAt(16) === '1' ?
+                <p>{(selectedFlightData.data.progress.status.charAt(11) === '1' && selectedFlightData.data.progress.status.charAt(12) === ' ') || (selectedFlightData.data.progress.status.charAt(16) === '1' && selectedFlightData.data.progress.status.charAt(17) === ' ') ?
                   `${selectedFlightData.data.progress.status.charAt(0).toUpperCase() + selectedFlightData.data.progress.status.slice(1).replace(/h\s/, ' hour and ').replace(/m/, ' minutes')}` :
                   `${selectedFlightData.data.progress.status.charAt(0).toUpperCase() + selectedFlightData.data.progress.status.slice(1).replace(/h\s/, ' hours and ').replace(/m/, ' minutes')}`}
                 </p>
@@ -204,96 +217,98 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
           </div>
         </div>
 
+
         <div className="detailed-popup-body-virtual-cockpit">
-            <div className="detailed-popup-body-virtual-cockpit-title">
-              <div className="detailed-popup-body-virtual-cockpit-title-text">
-                <img src={informationIcon} alt="Virtual Cockpit" style={{width: '15px', height: '15px'}} />
-                <p id="detailed-popup-body-virtual-cockpit-title-text" >Virtual Cockpit</p>
-                <p id="detailed-popup-body-virtual-cockpit-title-last-contact" >
-                  (Last contact :
-                  {currentTime < 1000 ? ' 0 seconds ago' :
-                    currentTime < 2000 ? ' 1 second ago' :
-                      currentTime < 60000 ? ` ${Math.floor(currentTime / 1000)} seconds ago` :
-                        currentTime < 120000 ? ' 1 minute ago' :
-                          currentTime < 3600000 ? ` ${Math.floor(currentTime / 60000)} minutes ago` :
-                            currentTime < 7200000 ? ' 1 hour ago' :
-                            ` ${Math.floor(currentTime / 3600000)} hours ago`})
-                </p>
-              </div>
-              <img src={whiteLineIcon} alt="Virtual Cockpit" style={{width: '15px', height: '15px'}} />
+          <div className="detailed-popup-body-virtual-cockpit-title">
+            <div className="detailed-popup-body-virtual-cockpit-title-text">
+              <img src={informationIcon} alt="Virtual Cockpit" style={{width: '15px', height: '15px'}} />
+              <p id="detailed-popup-body-virtual-cockpit-title-text" >Virtual Cockpit</p>
+              <p id="detailed-popup-body-virtual-cockpit-title-last-contact" >
+                (Last contact :
+                {currentTime < 1000 ? ' 0 seconds ago' :
+                  currentTime < 2000 ? ' 1 second ago' :
+                    currentTime < 60000 ? ` ${Math.floor(currentTime / 1000)} seconds ago` :
+                      currentTime < 120000 ? ' 1 minute ago' :
+                        currentTime < 3600000 ? ` ${Math.floor(currentTime / 60000)} minutes ago` :
+                          currentTime < 7200000 ? ' 1 hour ago' :
+                          ` ${Math.floor(currentTime / 3600000)} hours ago`})
+              </p>
             </div>
-            <div className="detailed-popup-body-virtual-cockpit-grid">
-              <div className="detailed-popup-body-virtual-cockpit-grid-longitude">
-                <p id="detailed-popup-body-virtual-cockpit-grid-longitude-text" >Longitude</p>
-                {flight?.longitude && (
-                  <p id="detailed-popup-body-virtual-cockpit-grid-longitude-value" >
-                    {flight.longitude}° E
-                  </p>
-                )}
-              </div>
-              <div className="detailed-popup-body-virtual-cockpit-grid-latitude">
-                <p id="detailed-popup-body-virtual-cockpit-grid-latitude-text" >Latitude</p>
-                {flight?.latitude && (
-                  <p id="detailed-popup-body-virtual-cockpit-grid-latitude-value" >
-                    {flight.latitude}° S
-                  </p>
-                )}
-              </div>
-              <div className="detailed-popup-body-virtual-cockpit-grid-baro-altitude">
-                <p id="detailed-popup-body-virtual-cockpit-grid-baro-altitude-text" >Barometric Altitude</p>
-                {flight?.baro_altitude && (
-                  <p id="detailed-popup-body-virtual-cockpit-grid-baro-altitude-value" >
-                    {flight.baro_altitude} m | {Math.floor(flight.baro_altitude * 3.28084)} ft
-                  </p>
-                )}
-              </div>
-              <div className="detailed-popup-body-virtual-cockpit-grid-geo-altitude">
-                <p id="detailed-popup-body-virtual-cockpit-grid-geo-altitude-text" >Geometric Altitude</p>
-                {flight?.geo_altitude && (
-                  <p id="detailed-popup-body-virtual-cockpit-grid-geo-altitude-value" >
-                    {flight.geo_altitude} m | {Math.floor(flight.geo_altitude * 3.28084)} ft
-                  </p>
-                )}
-              </div>
-              <div className="detailed-popup-body-virtual-cockpit-grid-velocity">
-                <p id="detailed-popup-body-virtual-cockpit-grid-velocity-text" >Ground Speed</p>
-                {flight?.velocity && (
-                  <p id="detailed-popup-body-virtual-cockpit-grid-velocity-value" >
-                    {Math.floor(flight.velocity * 3.6)} km/h | {Math.floor(flight.velocity * 2.23694)} mph
-                  </p>
-                )}
-              </div>
-              <div className="detailed-popup-body-virtual-cockpit-grid-vertical-rate">
-                <p id="detailed-popup-body-virtual-cockpit-grid-vertical-rate-text" >Vertical Speed</p>
-                {flight?.vertical_rate !== 0 && (
-                  <p id="detailed-popup-body-virtual-cockpit-grid-vertical-rate-value" >
-                    {flight.vertical_rate} m/s | {Math.floor(flight.vertical_rate * 196.850394)} ft/min
-                  </p>
-                )}
-                {flight?.vertical_rate === 0 && (
-                  <p id="detailed-popup-body-virtual-cockpit-grid-vertical-rate-value" >
-                    0 m/s | 0 ft/min
-                  </p>
-                )}
-              </div>
-              <div className="detailed-popup-body-virtual-cockpit-grid-true-track">
-                <p id="detailed-popup-body-virtual-cockpit-grid-true-track-text" >True Course</p>
-                {flight?.true_track && (
-                  <p id="detailed-popup-body-virtual-cockpit-grid-true-track-value" >
-                    {flight.true_track}° N
-                  </p>
-                )}
-              </div>
-              <div className="detailed-popup-body-virtual-cockpit-grid-squawk">
-                <p id="detailed-popup-body-virtual-cockpit-grid-squawk-text" >Squawk</p>
-                {flight?.squawk && (
-                  <p id="detailed-popup-body-virtual-cockpit-grid-squawk-value" >
-                    {flight.squawk}
-                  </p>
-                )}
-              </div>
+            <img src={whiteLineIcon} alt="Virtual Cockpit" style={{width: '15px', height: '15px'}} />
+          </div>
+          <div className="detailed-popup-body-virtual-cockpit-grid">
+            <div className="detailed-popup-body-virtual-cockpit-grid-longitude">
+              <p id="detailed-popup-body-virtual-cockpit-grid-longitude-text" >Longitude</p>
+              {flight?.longitude && (
+                <p id="detailed-popup-body-virtual-cockpit-grid-longitude-value" >
+                  {flight.longitude}° E
+                </p>
+              )}
+            </div>
+            <div className="detailed-popup-body-virtual-cockpit-grid-latitude">
+              <p id="detailed-popup-body-virtual-cockpit-grid-latitude-text" >Latitude</p>
+              {flight?.latitude && (
+                <p id="detailed-popup-body-virtual-cockpit-grid-latitude-value" >
+                  {flight.latitude}° S
+                </p>
+              )}
+            </div>
+            <div className="detailed-popup-body-virtual-cockpit-grid-baro-altitude">
+              <p id="detailed-popup-body-virtual-cockpit-grid-baro-altitude-text" >Barometric Altitude</p>
+              {flight?.baro_altitude && (
+                <p id="detailed-popup-body-virtual-cockpit-grid-baro-altitude-value" >
+                  {flight.baro_altitude} m | {Math.floor(flight.baro_altitude * 3.28084)} ft
+                </p>
+              )}
+            </div>
+            <div className="detailed-popup-body-virtual-cockpit-grid-geo-altitude">
+              <p id="detailed-popup-body-virtual-cockpit-grid-geo-altitude-text" >Geometric Altitude</p>
+              {flight?.geo_altitude && (
+                <p id="detailed-popup-body-virtual-cockpit-grid-geo-altitude-value" >
+                  {flight.geo_altitude} m | {Math.floor(flight.geo_altitude * 3.28084)} ft
+                </p>
+              )}
+            </div>
+            <div className="detailed-popup-body-virtual-cockpit-grid-velocity">
+              <p id="detailed-popup-body-virtual-cockpit-grid-velocity-text" >Ground Speed</p>
+              {flight?.velocity && (
+                <p id="detailed-popup-body-virtual-cockpit-grid-velocity-value" >
+                  {Math.floor(flight.velocity * 3.6)} km/h | {Math.floor(flight.velocity * 2.23694)} mph
+                </p>
+              )}
+            </div>
+            <div className="detailed-popup-body-virtual-cockpit-grid-vertical-rate">
+              <p id="detailed-popup-body-virtual-cockpit-grid-vertical-rate-text" >Vertical Speed</p>
+              {flight?.vertical_rate !== 0 && (
+                <p id="detailed-popup-body-virtual-cockpit-grid-vertical-rate-value" >
+                  {flight.vertical_rate} m/s | {Math.floor(flight.vertical_rate * 196.850394)} ft/min
+                </p>
+              )}
+              {flight?.vertical_rate === 0 && (
+                <p id="detailed-popup-body-virtual-cockpit-grid-vertical-rate-value" >
+                  0 m/s | 0 ft/min
+                </p>
+              )}
+            </div>
+            <div className="detailed-popup-body-virtual-cockpit-grid-true-track">
+              <p id="detailed-popup-body-virtual-cockpit-grid-true-track-text" >True Course</p>
+              {flight?.true_track && (
+                <p id="detailed-popup-body-virtual-cockpit-grid-true-track-value" >
+                  {flight.true_track}° N
+                </p>
+              )}
+            </div>
+            <div className="detailed-popup-body-virtual-cockpit-grid-squawk">
+              <p id="detailed-popup-body-virtual-cockpit-grid-squawk-text" >Squawk</p>
+              {flight?.squawk && (
+                <p id="detailed-popup-body-virtual-cockpit-grid-squawk-value" >
+                  {flight.squawk}
+                </p>
+              )}
             </div>
           </div>
+        </div>
+
 
         <div className="detailed-popup-body-about-flight">
           <div className="detailed-popup-body-about-flight-title">
@@ -310,9 +325,9 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
               <p id="detailed-popup-body-about-flight-grid-from-text" >From : </p>
               {selectedFlightData?.data.origin.airport && (
                 <p id="detailed-popup-body-about-flight-grid-from-value" >
-                  {selectedFlightData?.data?.origin?.airport?.length < 40 ?
+                  {selectedFlightData?.data?.origin?.airport?.length < 38 ?
                     `${selectedFlightData.data.origin.airport} ${selectedFlightData.data.origin.code}` :
-                    `${selectedFlightData.data.origin.airport.slice(0,40)}... ${selectedFlightData.data.origin.code}`
+                    `${selectedFlightData.data.origin.airport.slice(0,38)}... ${selectedFlightData.data.origin.code}`
                   }
                 </p>
               )}
@@ -321,9 +336,9 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
               <p id="detailed-popup-body-about-flight-grid-to-text" >To : </p>
               {selectedFlightData?.data.destination.airport && (
                 <p id="detailed-popup-body-about-flight-grid-to-value" >
-                  {selectedFlightData?.data?.destination?.airport?.length < 45 ?
+                  {selectedFlightData?.data?.destination?.airport?.length < 43 ?
                     `${selectedFlightData.data.destination.airport} ${selectedFlightData.data.destination.code}` :
-                    `${selectedFlightData.data.destination.airport.slice(0,45)}... ${selectedFlightData.data.destination.code}`
+                    `${selectedFlightData.data.destination.airport.slice(0,43)}... ${selectedFlightData.data.destination.code}`
                   }
                 </p>
               )}
@@ -371,7 +386,6 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
               </div>
           </div>
         </div>
-
 
 
         <div className="detailed-popup-body-departure">
@@ -426,8 +440,6 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
         </div>
 
 
-
-
         <div className="detailed-popup-body-arrival">
           <div className="detailed-popup-body-arrival-title">
             <div className="detailed-popup-body-arrival-title-text">
@@ -479,18 +491,6 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
             </div>
           </div>
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         <div className="detailed-popup-body-aircraft">
@@ -558,7 +558,82 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
 
 
 
+        <div className="detailed-popup-body-flight-history" onClick={handleToggleExpandedHistory}>
+          <div className="detailed-popup-body-flight-history-title">
+            <div className="detailed-popup-body-flight-history-title-text">
+              <img src={informationIcon} alt="Flight History" style={{width: '15px', height: '15px'}} />
+              {selectedFlightData?.registration && (
+                <div className="detailed-popup-body-flight-history-title-text-div">
+                  <p id="detailed-popup-body-flight-history-title-text" >{selectedFlightData.registration} Flight History</p>
+                  <p id="detailed-popup-body-flight-history-title-text-italic" >(Past 7 days)</p>
+                </div>
+              )}
+            </div>
+            <div className="detailed-popup-body-flight-history-title-line">
+              {isExpandedHistory ? (
+                <img src={whiteLiftupIcon} alt="Flight History" style={{width: '15px', height: '15px'}} />
+              ) : (
+                <img src={whiteDropdownIcon} alt="Flight History" style={{width: '15px', height: '15px'}} />
+              )}
+            </div>
+          </div>
 
+          <div className={`detailed-popup-body-flight-history-table ${isExpandedHistory ? 'expanded' : ''}`}
+            style={isExpandedHistory && selectedFlightData?.data.otherFlights ?
+                    {height: `${(72 * (selectedFlightData?.data.otherFlights.length ?? 0)) + (2 * (selectedFlightData?.data.otherFlights.length ?? 0)) - 2}px`}
+                    :
+                    {height: 0}
+                  }>
+
+            {selectedFlightData?.data.otherFlights.map((flight: any, index: number) => (
+              <div key={index} className="detailed-popup-body-flight-history-table-row">
+                <div className="detailed-popup-body-flight-history-table-row-title">
+                  <p id="detailed-popup-body-flight-history-table-row-title-date">{flight.date.slice(5)}.</p>
+                  <div className="detailed-popup-body-flight-history-table-row-title-callsign">
+                    <p id="detailed-popup-body-flight-history-table-row-title-callsign">{flight.callsign}</p>
+                    {flight.delay && (
+                      <div className="detailed-popup-body-flight-history-table-row-title-delay">
+                        {flight.delay && flight.delay.includes('Delayed') ?
+                          <p id="detailed-popup-body-flight-history-table-row-title-delay-value" style={{ color: 'orange' }} >●</p>
+                          :
+                          <p id="detailed-popup-body-flight-history-table-row-title-delay-value" style={{ color: 'green' }} >●</p>
+                        }
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div className="detailed-popup-body-flight-history-table-row-grid">
+                  <div className="detailed-popup-body-flight-history-table-row-grid-origin">
+                    <p id="detailed-popup-body-flight-history-table-row-grid-origin-text">From : </p>
+                    <p id="detailed-popup-body-flight-history-table-row-grid-origin-value">{flight.origin.slice(-9,-6)}</p>
+                  </div>
+                  <div className="detailed-popup-body-flight-history-table-row-grid-destination">
+                    <p id="detailed-popup-body-flight-history-table-row-grid-destination-text">To : </p>
+                    <p id="detailed-popup-body-flight-history-table-row-grid-destination-value">{flight.destination.slice(-9,-6)}</p>
+                  </div>
+                  <div className="detailed-popup-body-flight-history-table-row-grid-duration">
+                    <p id="detailed-popup-body-flight-history-table-row-grid-duration-text">Duration : </p>
+                    <p id="detailed-popup-body-flight-history-table-row-grid-duration-value">{flight.duration}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+
+          </div>
+
+          <div className="detailed-popup-body-flight-history-footer">
+            <p id="detailed-popup-body-flight-history-footer-text">Flights This Week : </p>
+            <p id="detailed-popup-body-flight-history-footer-value">
+              {selectedFlightData?.data.otherFlights.length ?? 0}
+            </p>
+          </div>
+
+
+
+
+
+
+        </div>
 
 
 
@@ -570,9 +645,13 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
 
 
       </div>
+
+
       <div className="detailed-popup-footer">
         <button onClick={handleClose}>Back to Live Map</button>
       </div>
+
+
     </div>
   );
 };
