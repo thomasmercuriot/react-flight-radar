@@ -400,20 +400,25 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
             <div className="detailed-popup-body-departure-terminal">
               <p id="detailed-popup-body-departure-terminal-text">Terminal : </p>
               <p id="detailed-popup-body-departure-terminal-value">
-                {selectedFlightData?.data?.departure?.terminal === undefined ?
-                  'N/A'
-                  :
-                  selectedFlightData?.data.departure.terminal
+              {selectedFlightData?.data?.departure?.terminal === undefined ||
+                (selectedFlightData?.data?.departure?.terminal && selectedFlightData?.data?.departure?.terminal.includes('-')) ||
+                (selectedFlightData?.data?.departure?.terminal && selectedFlightData?.data?.departure?.terminal.includes('m')) ||
+                (selectedFlightData?.data?.departure?.terminal?.length && selectedFlightData?.data?.departure?.terminal?.length > 5) ?
+                    'N/A'
+                    :
+                    selectedFlightData?.data.departure.terminal
                 }
               </p>
             </div>
             <div className="detailed-popup-body-departure-gate">
               <p id="detailed-popup-body-departure-gate-text">Gate : </p>
               <p id="detailed-popup-body-departure-gate-value">
-                {selectedFlightData?.data?.departure?.gate === '-' || (selectedFlightData?.data?.departure?.gate.length && selectedFlightData?.data?.departure?.gate.length > 5) ?
-                  'N/A'
-                  :
-                  selectedFlightData?.data.departure.gate
+                {(selectedFlightData?.data?.departure?.gate && selectedFlightData?.data?.departure?.gate.includes('-')) ||
+                  (selectedFlightData?.data?.departure?.gate.length && selectedFlightData?.data?.departure?.gate.length > 5) ||
+                  (selectedFlightData?.data?.departure?.gate && selectedFlightData?.data?.departure?.gate.includes('m')) ?
+                    'N/A'
+                    :
+                    selectedFlightData?.data.departure.gate
                 }
               </p>
             </div>
@@ -450,20 +455,25 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
             <div className="detailed-popup-body-arrival-terminal">
               <p id="detailed-popup-body-arrival-terminal-text">Terminal : </p>
               <p id="detailed-popup-body-arrival-terminal-value">
-                {selectedFlightData?.data?.arrival?.terminal === undefined ?
-                  'N/A'
-                  :
-                  selectedFlightData?.data.arrival.terminal
+                {selectedFlightData?.data?.arrival?.terminal === undefined ||
+                  (selectedFlightData?.data?.arrival?.terminal && selectedFlightData?.data?.arrival?.terminal.includes('-')) ||
+                  (selectedFlightData?.data?.arrival?.terminal && selectedFlightData?.data?.arrival?.terminal.includes('m')) ||
+                  (selectedFlightData?.data?.arrival?.terminal?.length && selectedFlightData?.data?.arrival?.terminal?.length > 5) ?
+                    'N/A'
+                    :
+                    selectedFlightData?.data.arrival.terminal
                 }
               </p>
             </div>
             <div className="detailed-popup-body-arrival-gate">
               <p id="detailed-popup-body-arrival-gate-text">Gate : </p>
               <p id="detailed-popup-body-arrival-gate-value">
-                {selectedFlightData?.data?.arrival?.gate === '-' || (selectedFlightData?.data?.arrival?.gate.length && selectedFlightData?.data?.arrival?.gate.length > 5) ?
-                  'N/A'
-                  :
-                  selectedFlightData?.data.arrival.gate
+                {(selectedFlightData?.data?.arrival?.gate && selectedFlightData?.data?.arrival?.gate.includes('-')) ||
+                  (selectedFlightData?.data?.arrival?.gate.length && selectedFlightData?.data?.arrival?.gate.length > 5) ||
+                  (selectedFlightData?.data?.arrival?.gate && selectedFlightData?.data?.arrival?.gate.includes('m')) ?
+                    'N/A'
+                    :
+                    selectedFlightData?.data.arrival.gate
                 }
               </p>
             </div>
