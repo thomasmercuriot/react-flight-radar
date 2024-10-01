@@ -517,7 +517,9 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
               )}
             </div>
             <div className="detailed-popup-body-aircraft-grid-airline-logo">
-              <p>(Logo)</p>
+              {selectedFlightData?.data.otherFlights[0].airlineLogo && (
+                <img src={selectedFlightData.data.otherFlights[0].airlineLogo} alt="Airline Logo" style={{width: 'auto', height: '30px'}} />
+              )}
             </div>
           </div>
           {selectedFlightPhotoData?.photo.photoData.aircraftLivery && (

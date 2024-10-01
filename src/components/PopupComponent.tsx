@@ -72,6 +72,7 @@ interface CurrentFlight { // The current flight's flight number.
 interface PastFlight { // Information about past flights. Useful for historical data.
   date: string | null; // Date of the flight.
   callsign: string | null; // Callsign.
+  airlineLogo: string | null; // Airline logo.
   origin: string | null; // Origin airport.
   scheduledDeparture: string | null; // Scheduled departure time.
   actualDeparture: string | null; // Actual departure time.
@@ -334,6 +335,7 @@ const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose, onShow
               <li key={index}>
                 <p>Date: {flight.date}</p>
                 <p>Callsign: {flight.callsign}</p>
+                <p>Airline Logo: {flight.airlineLogo}</p>
                 <p>Origin: {flight.origin}</p>
                 <p>Scheduled Departure: {flight.scheduledDeparture}</p>
                 <p>Actual Departure: {flight.actualDeparture}</p>
