@@ -275,22 +275,25 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
           if (map.current === null) return;
           if (e.features[0].properties === null) return;
 
-          new mapboxgl.Popup()
-            .setLngLat([coordinates[0], coordinates[1]] as mapboxgl.LngLatLike)
-            .setHTML(`
-              <h3>${e.features[0].properties.icao24}</h3>
-              <h3>${e.features[0].properties.callsign}</h3>
-              <p>Last Contact: ${e.features[0].properties.last_contact} sec</p>
-              <p>Longitude: ${e.features[0].properties.longitude}</p>
-              <p>Latitude: ${e.features[0].properties.latitude}</p>
-              <p>Altitude: ${e.features[0].properties.baro_altitude} ft</p>
-              <p>Velocity: ${e.features[0].properties.velocity} kt</p>
-              <p>Track: ${e.features[0].properties.true_track}°</p>
-              <p>Vertical Rate: ${e.features[0].properties.vertical_rate} fpm</p>
-              <p>Geo Altitude: ${e.features[0].properties.geo_altitude} ft</p>
-              <p>Squawk: ${e.features[0].properties.squawk}</p>
-            `) // You can customize the native Mapbox popup content here.
-            .addTo(map.current);
+          // The following code is optional. It displays a native Mapbox popup when the user clicks on an individual aircraft.
+          // It was used in development before I created the custom pop-up component.
+
+          // new mapboxgl.Popup()
+          //   .setLngLat([coordinates[0], coordinates[1]] as mapboxgl.LngLatLike)
+          //   .setHTML(`
+          //     <h3>${e.features[0].properties.icao24}</h3>
+          //     <h3>${e.features[0].properties.callsign}</h3>
+          //     <p>Last Contact: ${e.features[0].properties.last_contact} sec</p>
+          //     <p>Longitude: ${e.features[0].properties.longitude}</p>
+          //     <p>Latitude: ${e.features[0].properties.latitude}</p>
+          //     <p>Altitude: ${e.features[0].properties.baro_altitude} ft</p>
+          //     <p>Velocity: ${e.features[0].properties.velocity} kt</p>
+          //     <p>Track: ${e.features[0].properties.true_track}°</p>
+          //     <p>Vertical Rate: ${e.features[0].properties.vertical_rate} fpm</p>
+          //     <p>Geo Altitude: ${e.features[0].properties.geo_altitude} ft</p>
+          //     <p>Squawk: ${e.features[0].properties.squawk}</p>
+          //   `) // You can customize the native Mapbox popup content here.
+          //   .addTo(map.current);
         });
 
         map.current.on('mouseenter', 'clusters', () => {
