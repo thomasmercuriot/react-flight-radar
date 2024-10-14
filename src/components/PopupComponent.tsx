@@ -137,14 +137,14 @@ const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose, onShow
           setLoading(true);
           setError(null);
 
-          const registrationResponse = await axios.get<{ registration: string }>(`http://localhost:8000/api/registration/${icao24}`); // I am running my Node.js API locally on port 8000.
+          const registrationResponse = await axios.get<{ registration: string }>(`${process.env.REACT_APP_API_URL}/api/registration/${icao24}`);
           const registration = registrationResponse.data.registration; // See API documentation for the expected response (https://github.com/thomasmercuriot/node-flight-radar).
 
-          const additionalFlightDataResponse = await axios.get<AdditionalFlightData>(`http://localhost:8000/api/aircraft/${registration}`);
+          const additionalFlightDataResponse = await axios.get<AdditionalFlightData>(`${process.env.REACT_APP_API_URL}/api/aircraft/${registration}`);
           setAdditionalFlightData(additionalFlightDataResponse.data);
           setSelectedFlightData(additionalFlightDataResponse.data);
 
-          const aircraftPhotoResponse = await axios.get<AircraftPhoto>(`http://localhost:8000/api/photo/${registration}`);
+          const aircraftPhotoResponse = await axios.get<AircraftPhoto>(`${process.env.REACT_APP_API_URL}/api/photo/${registration}`);
           setAircraftPhoto(aircraftPhotoResponse.data);
           setSelectedFlightPhotoData(aircraftPhotoResponse.data);
 

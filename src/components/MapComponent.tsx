@@ -65,7 +65,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
   const fetchAircrafts = useCallback(async (boundingBox: mapboxgl.LngLatBounds | null) => {
     try {
       if (!boundingBox) return;
-      const response = await axios.get('http://localhost:8000/api', { // I am running my Node.js API locally on port 8000.
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api`, {
         params: {
           lamin: boundingBox.getSouthWest().lat,
           lomin: boundingBox.getSouthWest().lng,
