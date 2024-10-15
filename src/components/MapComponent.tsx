@@ -3,6 +3,7 @@ import mapboxgl from 'mapbox-gl'; // npm install --save react-map-gl mapbox-gl @
 import 'mapbox-gl/dist/mapbox-gl.css'; // The base map library requires its stylesheet be included at all times.
 import axios from 'axios'; // npm install axios | Axios is a simple promise based HTTP client for the browser and node.js.
 import aircraftIconStandard from '../assets/standard-white-plane-icon-map.png';
+import aircraftIconSelected from '../assets/standard-orange-plane-icon-map.png';
 import { FeatureCollection, Point } from 'geojson'; // npm install @types/geojson
 import PopupComponent, { AdditionalFlightData, AircraftPhoto } from './PopupComponent';
 import DetailedPopupComponent from './DetailedPopupComponent';
@@ -43,6 +44,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
   const [showDetailedPopup, setShowDetailedPopup] = useState<boolean>(false);
   const [selectedFlightData, setSelectedFlightData] = useState<AdditionalFlightData | null>(null);
   const [selectedFlightPhotoData, setSelectedFlightPhotoData] = useState<AircraftPhoto | null>(null);
+  const selectedMarkerRef = useRef<mapboxgl.Marker | null>(null);
 
   const handleAircraftClick = (aircraft: Aircraft) => {
     setSelectedFlight(aircraft);
@@ -204,7 +206,20 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
 
         map.current.addSource('aircrafts', {
           type: 'geojson',
-          data: convertToGeoJSON(aircrafts),
+          data: {
+            type: 'FeatureCollection',
+            features: aircrafts.map((aircraft) => ({
+              type: 'Feature',
+              geometry: {
+                type: 'Point',
+                coordinates: [aircraft.longitude, aircraft.latitude],
+              },
+              properties: {
+                id: aircraft.icao24,
+                icon: 'aircraft-icon',
+              },
+            })),
+          },
           cluster: true, // Enable clustering to optimize readability and performance. (avoid overlapping markers & reduce the number of markers).
           // Read the documentation I used at https://docs.mapbox.com/mapbox-gl-js/example/cluster/.
           clusterMaxZoom: 12, // The example uses 14, but I found 12 to be more suitable.
@@ -262,21 +277,28 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
           if (image && !map.current?.hasImage('aircraft-icon')) {
             map.current?.addImage('aircraft-icon', image);
           }
+        });
 
-          map.current?.addLayer({
-            id: 'unclustered-point', // This layer will display the individual aircrafts (= Marker).
-            type: 'symbol',
-            source: 'aircrafts',
-            filter: ['!', ['has', 'point_count']],
-            layout: {
-              'icon-image': 'aircraft-icon',
-              'icon-size': 1 / 20,
-              'icon-rotate': ['get', 'true_track'], // Rotate the icon based on the aircraft's true track.
-              'icon-allow-overlap': true, // Allow the icon to overlap with other icons because the clustering will help avoid overlapping in most cases.
-              // However, I want the clustering to be turned off over a certain zoom level to display the individual aircrafts rather than 2-5 aircrafts in a cluster.
-              // Overlapping will mainly occur when the user is focused on an airport or a specific area with a high density of aircrafts.
-            },
-          });
+        map.current!.loadImage(aircraftIconSelected, (error, image) => {
+          if (error) throw error;
+          if (!map.current!.hasImage('aircraft-icon-selected')) {
+            map.current!.addImage('aircraft-icon-selected', image!);
+          }
+        });
+
+        map.current?.addLayer({
+          id: 'unclustered-point', // This layer will display the individual aircrafts (= Marker).
+          type: 'symbol',
+          source: 'aircrafts',
+          filter: ['!', ['has', 'point_count']],
+          layout: {
+            'icon-image': 'aircraft-icon',
+            'icon-size': 1 / 20,
+            'icon-rotate': ['get', 'true_track'], // Rotate the icon based on the aircraft's true track.
+            'icon-allow-overlap': true, // Allow the icon to overlap with other icons because the clustering will help avoid overlapping in most cases.
+            // However, I want the clustering to be turned off over a certain zoom level to display the individual aircrafts rather than 2-5 aircrafts in a cluster.
+            // Overlapping will mainly occur when the user is focused on an airport or a specific area with a high density of aircrafts.
+          },
         });
 
         map.current.on('click', 'clusters', (e) => { // When the user clicks on a cluster, the map will zoom in to the cluster and center it.
@@ -305,6 +327,12 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
           if (e.features === undefined) return;
 
           handleAircraftClick(e.features[0].properties as Aircraft); // Display the pop-up with the aircraft's information.
+
+          const clickedAircraft = e.features[0]?.properties?.id;
+          const selectedAircraft = aircrafts.find((aircraft) => aircraft.icao24 === clickedAircraft);
+          if (selectedAircraft) {
+            handleAircraftClick(selectedAircraft);
+          }
 
           const coordinates = (e.features[0].geometry as GeoJSON.Point).coordinates.slice();
 
@@ -391,6 +419,48 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
       );
     }
   }, [aircrafts]);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (map.current && map.current.getSource('aircrafts')) {
+        (map.current.getSource('aircrafts') as mapboxgl.GeoJSONSource).setData(
+          convertToGeoJSON(aircrafts)
+        );
+      }
+
+      if (selectedFlight) {
+        const updatedSelectedFlight = aircrafts.find((aircraft) => aircraft.icao24 === selectedFlight.icao24);
+        if (updatedSelectedFlight) {
+          setSelectedFlight(updatedSelectedFlight);
+        }
+      }
+    }, 200);
+
+    return () => clearTimeout(timeoutId);
+  }, [aircrafts, selectedFlight]);
+
+  useEffect(() => {
+    if (selectedFlight && map.current) {
+      if (selectedMarkerRef.current) {
+        selectedMarkerRef.current.remove();
+      }
+
+      const el = document.createElement('div');
+      el.className = 'selected-marker';
+      el.style.backgroundImage = `url(${aircraftIconSelected})`;
+      el.style.width = '25.6px';
+      el.style.height = '25.6px';
+      el.style.backgroundSize = '100%';
+
+      selectedMarkerRef.current = new mapboxgl.Marker(el)
+        .setLngLat([selectedFlight.longitude, selectedFlight.latitude])
+        .setRotation(selectedFlight.true_track)
+        .addTo(map.current);
+    } else if (!selectedFlight && selectedMarkerRef.current) {
+      selectedMarkerRef.current.remove();
+      selectedMarkerRef.current = null;
+    }
+  }, [selectedFlight]);
 
   return (
     <div>
