@@ -2,10 +2,12 @@ import React, { useRef, useEffect, useState, useCallback } from 'react';
 import mapboxgl from 'mapbox-gl'; // npm install --save react-map-gl mapbox-gl @types/mapbox-gl
 import 'mapbox-gl/dist/mapbox-gl.css'; // The base map library requires its stylesheet be included at all times.
 import axios from 'axios'; // npm install axios | Axios is a simple promise based HTTP client for the browser and node.js.
-import aircraftIconStandard from '../assets/aircraft-icon-standard.png';
+import aircraftIconStandard from '../assets/standard-white-plane-icon-map.png';
 import { FeatureCollection, Point } from 'geojson'; // npm install @types/geojson
 import PopupComponent, { AdditionalFlightData, AircraftPhoto } from './PopupComponent';
 import DetailedPopupComponent from './DetailedPopupComponent';
+// import { features } from 'process';
+// import { icon } from 'leaflet';
 
 interface MapComponentProps {
   accessToken: string;
@@ -128,10 +130,51 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
 
           map.current?.setCenter([longitude, latitude]); // Center the map on the user's location.
 
-          new mapboxgl.Marker({ color: 'red' })
-            .setLngLat([longitude, latitude])
-            .setPopup(new mapboxgl.Popup().setHTML("<h4>Hello from home</h4>")) // Optional popup
-            .addTo(map.current!);
+          const geojson = {
+            type: 'FeatureCollection',
+            features: [
+              {
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: [longitude, latitude]
+                },
+                properties: {
+                  message: 'You are here!',
+                  iconSize: [60, 60],
+                }
+              }
+            ]
+          };
+
+          for (const marker of geojson.features) {
+            const el = document.createElement('div');
+            const width = marker.properties.iconSize[0];
+            const height = marker.properties.iconSize[1];
+            el.className = 'marker';
+            el.style.backgroundImage = `url(https://avatars.githubusercontent.com/u/164926532?v=4)`;
+            el.style.width = `${width}px`;
+            el.style.height = `${height}px`;
+            el.style.backgroundSize = '100%';
+            el.style.display = 'block';
+            el.style.border = '2px solid #fff';
+            el.style.borderRadius = '50%';
+            el.style.cursor = 'pointer';
+            el.style.padding = '0';
+
+            el.addEventListener('click', () => {
+              window.alert(marker.properties.message);
+            });
+
+            new mapboxgl.Marker(el)
+              .setLngLat(marker.geometry.coordinates as [number, number])
+              .addTo(map.current!);
+          }
+
+          // new mapboxgl.Marker({ color: 'red' })
+          //   .setLngLat([longitude, latitude])
+          //   .setPopup(new mapboxgl.Popup().setHTML("<h4>Hello from home</h4>")) // Optional popup
+          //   .addTo(map.current!);
         },
         (error) => {
           switch (error.code) {
