@@ -121,6 +121,7 @@ const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose, onShow
   const [additionalFlightData, setAdditionalFlightData] = useState<AdditionalFlightData | null>(null);
   const [aircraftPhoto, setAircraftPhoto] = useState<AircraftPhoto | null>(null);
   const [isClosing, setIsClosing] = useState<boolean>(false);
+  const [isPrevious, setIsPrevious] = useState<string>('');
 
   const handleCloseClick = () => {
     setIsClosing(true);
@@ -130,7 +131,9 @@ const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose, onShow
   };
 
   useEffect(() => {
-    if (flight && flight.icao24) {
+    if (flight && flight.icao24 && flight.icao24 !== isPrevious) {
+
+      setIsPrevious(flight?.icao24 || '')
 
       const fetchRegistration = async (icao24: string) => {
         try {
@@ -161,7 +164,7 @@ const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose, onShow
 
       fetchRegistration(flight.icao24);
     };
-  }, [flight, setSelectedFlightData, setSelectedFlightPhotoData]);
+  }, [flight, setSelectedFlightData, setSelectedFlightPhotoData, isPrevious]);
 
   const getStatusColor = (status: string): string => {
     switch (status.toLowerCase()) {
