@@ -183,6 +183,12 @@ const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose, onShow
 
   return (
     <div className={`flight-info-popup ${isClosing ? 'closing' : ''} ${hidden ? 'hidden' : ''}`}>
+      {loading &&
+        <div className="loading">
+          <p>Retrieving Live Flight Data</p>
+          <div className="loader"></div>
+        </div>
+      }
       <div className="flight-info-popup-header">
         <div className="flight-info-popup-header-left">
           <div className="header-text-upper">
