@@ -448,8 +448,8 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
       const el = document.createElement('div');
       el.className = 'selected-marker';
       el.style.backgroundImage = `url(${aircraftIconSelected})`;
-      el.style.width = '25.6px';
-      el.style.height = '25.6px';
+      el.style.width = '26px';
+      el.style.height = '26px';
       el.style.backgroundSize = '100%';
 
       selectedMarkerRef.current = new mapboxgl.Marker(el)

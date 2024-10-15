@@ -15,6 +15,7 @@
   animation-delay: 0.3s;
   overflow-y: hidden;
   overflow-x: hidden;
+  padding-bottom: 20px;
 }
 
 .detailed-popup.hidden {
@@ -1402,24 +1403,16 @@
   font-style: italic;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 .detailed-popup-footer {
   position: sticky;
-  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  padding: 25px 10px 25px 10px;
+  padding: 20px 10px 25px 10px;
   background-color: #242424;
+  height: 5vh;
 }
 
 .detailed-popup-footer button {
@@ -1429,7 +1422,7 @@
   width: 100%;
   border-radius: 10px;
   padding: 10px;
-  margin-top: 0px;
+  margin-top: 20px;
   background-color: #1A1A1A;
   color: orange;
   border: none;

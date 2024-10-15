@@ -555,9 +555,6 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
         </div>
 
 
-
-
-
         <div className="detailed-popup-body-flight-history" onClick={handleToggleExpandedHistory}>
           <div className="detailed-popup-body-flight-history-title">
             <div className="detailed-popup-body-flight-history-title-text">
@@ -628,29 +625,13 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
             </p>
           </div>
 
-
-
-
-
-
         </div>
 
-
-
-
-
-
-
-
-
-
       </div>
-
 
       <div className="detailed-popup-footer">
         <button onClick={handleClose}>Back to Live Map</button>
       </div>
-
 
     </div>
   );
