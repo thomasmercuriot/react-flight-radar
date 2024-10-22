@@ -3,7 +3,7 @@ import mapboxgl from 'mapbox-gl'; // npm install --save react-map-gl mapbox-gl @
 import 'mapbox-gl/dist/mapbox-gl.css'; // The base map library requires its stylesheet be included at all times.
 import axios from 'axios'; // npm install axios | Axios is a simple promise based HTTP client for the browser and node.js.
 import aircraftIconStandard from '../assets/standard-white-plane-icon-map.png';
-import aircraftIconSelected from '../assets/standard-orange-plane-icon-map.png';
+import aircraftIconSelected from '../assets/standard-blue-plane-icon-map.png';
 import { FeatureCollection, Point } from 'geojson'; // npm install @types/geojson
 import PopupComponent, { AdditionalFlightData, AircraftPhoto } from './PopupComponent';
 import DetailedPopupComponent from './DetailedPopupComponent';

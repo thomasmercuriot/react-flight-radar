@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import './styles/DetailedPopupComponent.css';
 import { AdditionalFlightData, AircraftPhoto } from './PopupComponent';
 import photoCredentialsIcon from '../assets/photo-credentials-icon.png'; // https://www.iconfinder.com/Kh.Artyom.
-import aircraftIconFlight from '../assets/icon-flight-origin-destination.png'; // https://www.iconfinder.com/font-awesome.
-import aircraftIconWhite from '../assets/icon-plane-white.png'; // https://www.flaticon.com/fr/icone-gratuite/avion_5655607?term=avion&page=1&position=3&origin=tag&related_id=5655607.
+import aircraftIconFlight from '../assets/standard-white-plane-icon-popup.png';
 import informationIcon from '../assets/information-icon.png'; // https://www.iconfinder.com/DesignRevision.
+import departureIcon from '../assets/departure-icon-white.png'; // https://www.iconfinder.com/omniastudio.
+import arrivalIcon from '../assets/arrival-icon-white.png'; // https://www.iconfinder.com/omniastudio.
 import whiteDropdownIcon from '../assets/white-dropdown-icon.png'; // https://www.iconfinder.com/deemakdaksina.
 import whiteLiftupIcon from '../assets/white-liftup-icon.png'; // https://www.iconfinder.com/deemakdaksina.
 import whiteLocationIcon from '../assets/white-location-icon.png'; // https://www.iconfinder.com/font-awesome.
@@ -194,7 +195,7 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
             {selectedFlightData?.data.progress.percentage && (
               <div id="detailed-popup-body-overview-progress-bar-fill" style={{ width: (selectedFlightData.data.progress.percentage - 5) + '%' }}></div>
             )}
-            <img id="detailed-popup-body-overview-progress-bar-icon" src={aircraftIconWhite} alt="Aircraft Icon" />
+            <img id="detailed-popup-body-overview-progress-bar-icon" src={aircraftIconFlight} alt="Aircraft Icon" />
             {selectedFlightData?.data.progress.percentage && (
               <div id="detailed-popup-body-overview-progress-bar-empty" style={{ width: ( 95 - selectedFlightData.data.progress.percentage) + '%' }}></div>
             )}
@@ -391,7 +392,7 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
         <div className="detailed-popup-body-departure">
           <div className="detailed-popup-body-departure-title">
             <div className="detailed-popup-body-departure-title-text">
-              <img src={informationIcon} alt="Departure" style={{width: '15px', height: '15px'}} />
+              <img src={departureIcon} alt="Departure" style={{width: '15px', height: '15px'}} />
               <p id="detailed-popup-body-departure-title-text">Departure</p>
             </div>
             <div className="detailed-popup-body-departure-title-status">
@@ -443,7 +444,7 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
         <div className="detailed-popup-body-arrival">
           <div className="detailed-popup-body-arrival-title">
             <div className="detailed-popup-body-arrival-title-text">
-              <img src={informationIcon} alt="arrival" style={{width: '15px', height: '15px'}} />
+              <img src={arrivalIcon} alt="arrival" style={{width: '15px', height: '15px'}} />
               <p id="detailed-popup-body-arrival-title-text">Arrival</p>
             </div>
             <div className="detailed-popup-body-arrival-title-status">

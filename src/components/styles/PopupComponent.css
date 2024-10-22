@@ -53,7 +53,7 @@
   box-shadow: 0px 0px 21px 15px rgba(0,0,0,0.53);
   transform: translateY(100%);
   animation: slideUp 0.3s ease-out forwards;
-  overflow-y: scroll;
+  overflow-y: hidden;
   overflow-x: hidden;
 }
 
@@ -234,8 +234,9 @@
 }
 
 .flight-info-popup-body-top-airports img {
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
+  transform: rotate(90deg);
 }
 
 .origin-airport {

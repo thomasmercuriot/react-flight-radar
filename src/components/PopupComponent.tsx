@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './styles/PopupComponent.css';
 import axios from 'axios'; // npm install axios | Axios is a simple promise based HTTP client for the browser and node.js.
-import aircraftIconFlight from '../assets/icon-flight-origin-destination.png'; // https://www.iconfinder.com/font-awesome.
-import aircraftIconWhite from '../assets/icon-plane-white.png'; // https://www.flaticon.com/fr/icone-gratuite/avion_5655607?term=avion&page=1&position=3&origin=tag&related_id=5655607.
+import aircraftIconFlight from '../assets/standard-white-plane-icon-popup.png'
 
 // Read API documentation at https://github.com/thomasmercuriot/node-flight-radar.
 // In addition to the API documentation, I will detail the code as much as possible.
@@ -242,7 +241,7 @@ const PopupComponent: React.FC<PopupComponentProps> = ({ flight, onClose, onShow
             {additionalFlightData?.data.progress.percentage && (
               <div className="progress-bar-fill" style={{ width: (additionalFlightData.data.progress.percentage - 5) + '%' }}></div>
             )}
-            <img src={aircraftIconWhite} alt="Aircraft Icon" />
+            <img src={aircraftIconFlight} alt="Aircraft Icon" />
             {additionalFlightData?.data.progress.percentage && (
               <div className="progress-bar-empty" style={{ width: ( 95 - additionalFlightData.data.progress.percentage) + '%' }}></div>
             )}
