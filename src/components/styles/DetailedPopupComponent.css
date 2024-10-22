@@ -1,3 +1,10 @@
+/* Color palette */
+:root {
+  --primary-color: #14171a;
+  --secondary-color: #1C1C1E;
+  --accent-color: #1da1f2;
+}
+
 .detailed-popup {
   position: fixed;
   bottom: 0;
@@ -5,11 +12,12 @@
   width: 100%;
   max-width: 100vh;
   height: 98%;
-  background-color: #242424;
+  background-color: var(--primary-color);
   color: white;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.8);
+  /* box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.8); */
+  box-shadow: 0px 0px 21px 15px rgba(0,0,0,0.53);
   transform: translateY(100%);
   animation: slideUp 0.3s ease-out forwards;
   animation-delay: 0.3s;
@@ -45,7 +53,7 @@
   top: 0;
   display: flex;
   flex-direction: column;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   color: white;
   padding: 10px;
   gap: 5px;
@@ -61,7 +69,7 @@
 
 #detailed-popup-banner-upper-callsign {
   margin: 0;
-  color: orange;
+  color: var(--accent-color);
   font-size: 1.2rem;
   font-weight: 600;
 }
@@ -71,7 +79,8 @@
   align-items: center;
   justify-content: center;
   margin: 0;
-  background-color: #242424;
+  background-color: var(--secondary-color);
+  border: solid 1px var(--accent-color);
   height: 1.2rem;
   padding: 2px 5px;
   border-radius: 5px;
@@ -79,13 +88,13 @@
 
 #detailed-popup-banner-upper-flight-number {
   margin: 0;
-  color: white;
+  color: var(--accent-color);
   font-size: 0.8rem;
 }
 
 #detailed-popup-banner-upper-registration {
   margin: 0;
-  color: white;
+  color: var(--accent-color);
   font-size: 0.8rem;
 }
 
@@ -115,11 +124,11 @@
   flex-direction: column;
   gap: 10px;
   padding: 10px;
-  height: 80%;
+  height: 77.1%;
   overflow-y: scroll;
   overflow-x: hidden;
   scroll-behavior: smooth;
-  padding-bottom: 50px;
+  padding-bottom: 20px;
 }
 
 .detailed-popup-body::-webkit-scrollbar {
@@ -131,7 +140,7 @@
   flex-direction: column;
   height: auto;
   border-radius: 10px;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
 }
 
 .detailed-popup-body-image {
@@ -260,7 +269,7 @@
   flex-direction: column;
   height: auto;
   border-radius: 10px;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px 10px 10px 10px;
   gap: 15px;
 }
@@ -350,7 +359,7 @@
 }
 
 #detailed-popup-body-overview-progress-bar-fill {
-  background-color: orange;
+  background-color: var(--accent-color);
   height: 5px;
   border-radius: 5px;
 }
@@ -420,7 +429,7 @@
   align-items: center;
   height: auto;
   border-radius: 10px 10px 0 0;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
   gap: 10px;
 }
@@ -453,7 +462,7 @@
   display: flex;
   flex-direction: column;
   height: auto;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
 }
 
@@ -473,7 +482,7 @@
   display: flex;
   flex-direction: column;
   height: auto;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
 }
 
@@ -493,7 +502,7 @@
   display: flex;
   flex-direction: column;
   height: auto;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
 }
 
@@ -513,7 +522,7 @@
   display: flex;
   flex-direction: column;
   height: auto;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
 }
 
@@ -533,7 +542,7 @@
   display: flex;
   flex-direction: column;
   height: auto;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
 }
 
@@ -553,7 +562,7 @@
   display: flex;
   flex-direction: column;
   height: auto;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
 }
 
@@ -573,7 +582,7 @@
   display: flex;
   flex-direction: column;
   height: auto;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
   border-radius: 0 0 0 10px;
 }
@@ -594,7 +603,7 @@
   display: flex;
   flex-direction: column;
   height: auto;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
   border-radius: 0 0 10px 0;
 }
@@ -626,7 +635,7 @@
   height: auto;
   width: 100%;
   border-radius: 10px 10px 0 0;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
   gap: 10px;
 }
@@ -658,7 +667,7 @@
   justify-content: space-between;
   align-items: center;
   height: auto;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
 }
 
@@ -679,7 +688,7 @@
   justify-content: space-between;
   align-items: center;
   height: auto;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
 }
 
@@ -706,7 +715,7 @@
   justify-content: space-between;
   align-items: center;
   height: auto;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
 }
 
@@ -727,7 +736,7 @@
   justify-content: space-between;
   align-items: center;
   height: auto;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
 }
 
@@ -753,13 +762,14 @@
   justify-content: center;
   align-items: center;
   height: auto;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
 }
 
 .detailed-popup-body-about-flight-week-days p {
   margin: 0;
   font-size: 0.8rem;
+  color: var(--primary-color);
 }
 
 #first-week-day {
@@ -771,7 +781,7 @@
 }
 
 .active-days {
-  color: orange;
+  color: var(--accent-color) !important;
 }
 
 .detailed-popup-body-departure {
@@ -790,7 +800,7 @@
   height: auto;
   width: 100%;
   border-radius: 10px 10px 0 0;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
   gap: 10px;
 }
@@ -832,7 +842,7 @@
   justify-content: space-between;
   align-items: center;
   height: auto;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
 }
 
@@ -853,7 +863,7 @@
   justify-content: space-between;
   align-items: center;
   height: auto;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
 }
 
@@ -874,7 +884,7 @@
   justify-content: space-between;
   align-items: center;
   height: auto;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
   border-radius: 0 0 0 10px;
 }
@@ -896,7 +906,7 @@
   justify-content: space-between;
   align-items: center;
   height: auto;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
   border-radius: 0 0 10px 0;
 }
@@ -928,7 +938,7 @@
   height: auto;
   width: 100%;
   border-radius: 10px 10px 0 0;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
   gap: 10px;
 }
@@ -970,7 +980,7 @@
   justify-content: space-between;
   align-items: center;
   height: auto;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
 }
 
@@ -991,7 +1001,7 @@
   justify-content: space-between;
   align-items: center;
   height: auto;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
 }
 
@@ -1012,7 +1022,7 @@
   justify-content: space-between;
   align-items: center;
   height: auto;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
   border-radius: 0 0 0 10px;
 }
@@ -1034,7 +1044,7 @@
   justify-content: space-between;
   align-items: center;
   height: auto;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
   border-radius: 0 0 10px 0;
 }
@@ -1065,7 +1075,7 @@
   justify-content: space-between;
   width: 100%;
   border-radius: 10px 10px 0 0;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
   gap: 10px;
 }
@@ -1097,7 +1107,7 @@
 .detailed-popup-body-aircraft-grid-type {
   display: flex;
   flex-direction: column;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
 }
 
@@ -1116,14 +1126,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
 }
 
 .detailed-popup-body-aircraft-grid-airline {
   display: flex;
   flex-direction: column;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
 }
 
@@ -1142,7 +1152,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
 }
 
@@ -1151,7 +1161,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
 }
 
@@ -1177,7 +1187,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
   border-radius: 0 0 0 10px;
 }
@@ -1198,7 +1208,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
   border-radius: 0 0 10px 0;
 }
@@ -1229,7 +1239,7 @@
   justify-content: space-between;
   width: 100%;
   border-radius: 10px 10px 0 0;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
   gap: 10px;
   cursor: pointer;
@@ -1291,7 +1301,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 5px;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
 }
 
@@ -1327,7 +1337,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
 }
 
@@ -1346,7 +1356,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
 }
 
@@ -1365,7 +1375,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
 }
 
@@ -1387,7 +1397,7 @@
   justify-content: space-between;
   width: 100%;
   border-radius: 0 0 10px 10px;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
   gap: 10px;
 }
@@ -1405,14 +1415,15 @@
 
 .detailed-popup-footer {
   position: sticky;
+  bottom: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding: 20px 10px 25px 10px;
-  background-color: #242424;
-  height: 5vh;
+  padding: 5px 10px 25px 10px;
+  background-color: var(--primary-color);
+  height: 81px;
 }
 
 .detailed-popup-footer button {
@@ -1422,10 +1433,14 @@
   width: 100%;
   border-radius: 10px;
   padding: 10px;
-  margin-top: 20px;
-  background-color: #1A1A1A;
-  color: orange;
-  border: none;
+  background-color: var(--secondary-color);
+  color: var(--accent-color);
+  border: solid 1px var(--accent-color);
   font-size: 1rem;
   cursor: pointer;
+}
+
+.detailed-popup-footer button:active {
+  background-color: var(--accent-color);
+  color: var(--primary-color);
 }

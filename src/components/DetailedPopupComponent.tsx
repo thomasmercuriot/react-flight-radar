@@ -325,9 +325,9 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
               <p id="detailed-popup-body-about-flight-grid-from-text" >From : </p>
               {selectedFlightData?.data.origin.airport && (
                 <p id="detailed-popup-body-about-flight-grid-from-value" >
-                  {selectedFlightData?.data?.origin?.airport?.length < 38 ?
+                  {selectedFlightData?.data?.origin?.airport?.length < 32 ?
                     `${selectedFlightData.data.origin.airport} ${selectedFlightData.data.origin.code}` :
-                    `${selectedFlightData.data.origin.airport.slice(0,38)}... ${selectedFlightData.data.origin.code}`
+                    `${selectedFlightData.data.origin.airport.slice(0,32)}... ${selectedFlightData.data.origin.code}`
                   }
                 </p>
               )}
@@ -336,9 +336,9 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
               <p id="detailed-popup-body-about-flight-grid-to-text" >To : </p>
               {selectedFlightData?.data.destination.airport && (
                 <p id="detailed-popup-body-about-flight-grid-to-value" >
-                  {selectedFlightData?.data?.destination?.airport?.length < 43 ?
+                  {selectedFlightData?.data?.destination?.airport?.length < 35 ?
                     `${selectedFlightData.data.destination.airport} ${selectedFlightData.data.destination.code}` :
-                    `${selectedFlightData.data.destination.airport.slice(0,43)}... ${selectedFlightData.data.destination.code}`
+                    `${selectedFlightData.data.destination.airport.slice(0,35)}... ${selectedFlightData.data.destination.code}`
                   }
                 </p>
               )}
@@ -402,13 +402,13 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
             <div className="detailed-popup-body-departure-scheduled">
               <p id="detailed-popup-body-departure-scheduled-text">Scheduled : </p>
               {selectedFlightData?.data.departure.scheduled && (
-                <p id="detailed-popup-body-departure-scheduled-value">{selectedFlightData.data.departure.scheduled} {selectedFlightData?.data?.departure?.timezone?.match(/\(UTC[-+]?\d{2}:\d{2}\)/)?.[0].slice(0,7)}...</p>
+                <p id="detailed-popup-body-departure-scheduled-value">{selectedFlightData.data.departure.scheduled} {selectedFlightData?.data?.departure?.timezone?.match(/\(UTC[-+]?\d{2}:\d{2}\)/)?.[0].slice(0,4)}...</p>
               )}
             </div>
             <div className="detailed-popup-body-departure-departed">
               <p id="detailed-popup-body-departure-departed-text">Departed : </p>
               {selectedFlightData?.data.departure.departed && (
-                <p id="detailed-popup-body-departure-departed-value">{selectedFlightData.data.departure.departed} {selectedFlightData?.data?.departure?.timezone?.match(/\(UTC[-+]?\d{2}:\d{2}\)/)?.[0].slice(0,7)}...</p>
+                <p id="detailed-popup-body-departure-departed-value">{selectedFlightData.data.departure.departed} {selectedFlightData?.data?.departure?.timezone?.match(/\(UTC[-+]?\d{2}:\d{2}\)/)?.[0].slice(0,5)}...</p>
               )}
             </div>
             <div className="detailed-popup-body-departure-terminal">
@@ -457,7 +457,7 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
             <div className="detailed-popup-body-arrival-scheduled">
               <p id="detailed-popup-body-arrival-scheduled-text">Scheduled : </p>
               {selectedFlightData?.data.arrival.scheduled && (
-                <p id="detailed-popup-body-arrival-scheduled-value">{selectedFlightData.data.arrival.scheduled} {selectedFlightData?.data?.arrival?.timezone?.match(/\(UTC[-+]?\d{2}:\d{2}\)/)?.[0].slice(0,7)}...</p>
+                <p id="detailed-popup-body-arrival-scheduled-value">{selectedFlightData.data.arrival.scheduled} {selectedFlightData?.data?.arrival?.timezone?.match(/\(UTC[-+]?\d{2}:\d{2}\)/)?.[0].slice(0,4)}...</p>
               )}
             </div>
             <div className="detailed-popup-body-arrival-departed">
@@ -618,7 +618,7 @@ const DetailedPopupComponent: React.FC<DetailedPopupComponentProps> = ({ flight,
 
           </div>
 
-          <div className="detailed-popup-body-flight-history-footer">
+          <div className="detailed-popup-body-flight-history-footer" onClick={handleToggleExpandedHistory}>
             <p id="detailed-popup-body-flight-history-footer-text">Flights This Week : </p>
             <p id="detailed-popup-body-flight-history-footer-value">
               {selectedFlightData?.data.otherFlights.length ?? 0}

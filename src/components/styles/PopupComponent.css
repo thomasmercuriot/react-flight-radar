@@ -3,8 +3,11 @@
 }
 
 /* Color palette */
-/* #1A1A1A */
-/* #242424 */
+:root {
+  --primary-color: #14171a;
+  --secondary-color: #1C1C1E;
+  --accent-color: #1da1f2;
+}
 
 .loading {
   display: flex;
@@ -13,7 +16,7 @@
   align-items: center;
   height: 37vh;
   width: 100%;
-  background-color: #242424;
+  background-color: var(--primary-color);
   color: white;
 }
 
@@ -41,16 +44,21 @@
   left: 0;
   width: 100%;
   max-width: 100vh;
-  max-height: 37%;
-  background-color: #242424;
+  max-height: 40%;
+  background-color: var(--primary-color);
   color: white;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.8);
+  /* box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.8); */
+  box-shadow: 0px 0px 21px 15px rgba(0,0,0,0.53);
   transform: translateY(100%);
   animation: slideUp 0.3s ease-out forwards;
   overflow-y: scroll;
   overflow-x: hidden;
+}
+
+.flight-info-popup::-webkit-scrollbar {
+  display: none;
 }
 
 .flight-info-popup.closing {
@@ -85,7 +93,7 @@
 }
 
 .flight-info-popup-header {
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   color: white;
   display: grid;
   height: 11vh;
@@ -113,7 +121,7 @@
 
 #header-text-upper-callsign {
   margin: 0;
-  color: orange;
+  color: var(--accent-color);
   font-size: 1.2rem;
   font-weight: 600;
 }
@@ -123,7 +131,8 @@
   align-items: center;
   justify-content: center;
   margin: 0;
-  background-color: #242424;
+  background-color: var(--secondary-color);
+  border: solid 1px var(--accent-color);
   height: 1.2rem;
   padding: 2px 5px;
   border-radius: 5px;
@@ -131,7 +140,7 @@
 
 #header-text-upper-flightNumber {
   margin: 0;
-  color: white;
+  color: var(--accent-color);
   font-size: 0.8rem;
 }
 
@@ -140,7 +149,8 @@
   align-items: center;
   justify-content: center;
   margin: 0;
-  background-color: #242424;
+  background-color: var(--secondary-color);
+  border: solid 1px var(--accent-color);
   height: 1.2rem;
   padding: 2px 5px;
   border-radius: 5px;
@@ -148,7 +158,7 @@
 
 #header-text-upper-registration {
   margin: 0;
-  color: white;
+  color: var(--accent-color);
   font-size: 0.8rem;
 }
 
@@ -199,7 +209,7 @@
   gap: 5px;
   padding: 10px;
   margin: 0;
-  background-color: #242424;
+  background-color: var(--primary-color);
 }
 
 .flight-info-popup-body-top {
@@ -207,7 +217,7 @@
   flex-direction: column;
   gap: 5px;
   margin: 0;
-  background-color: #1A1A1A;
+  background-color: var(--secondary-color);
   padding: 10px;
   border-radius: 10px;
 }
@@ -281,7 +291,7 @@
 }
 
 .progress-bar-fill {
-  background-color: orange;
+  background-color: var(--accent-color);
   height: 5px;
   border-radius: 5px;
 }
@@ -312,6 +322,7 @@
   margin: 0;
   font-size: 0.8rem;
   font-weight: 400;
+  font-style: italic;
 }
 
 .arrival-status {
@@ -328,11 +339,18 @@
   border-radius: 10px;
   padding: 10px;
   margin-top: 5px;
-  background-color: #1A1A1A;
-  color: orange;
-  border: none;
+  background-color: var(--secondary-color);
+  color: var(--accent-color);
+  border: solid 1px var(--accent-color);
+  /* border: none; */
   font-size: 1rem;
   cursor: pointer;
+  margin-bottom: 200px;
+}
+
+.flight-info-popup-body-bottom button:active {
+  background-color: var(--accent-color);
+  color: var(--primary-color);
 }
 
 #hidden-button {

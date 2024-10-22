@@ -7,8 +7,7 @@ import aircraftIconSelected from '../assets/standard-orange-plane-icon-map.png';
 import { FeatureCollection, Point } from 'geojson'; // npm install @types/geojson
 import PopupComponent, { AdditionalFlightData, AircraftPhoto } from './PopupComponent';
 import DetailedPopupComponent from './DetailedPopupComponent';
-// import { features } from 'process';
-// import { icon } from 'leaflet';
+import './styles/MapComponent.css';
 
 interface MapComponentProps {
   accessToken: string;
