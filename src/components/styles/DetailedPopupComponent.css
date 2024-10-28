@@ -770,7 +770,7 @@
 .detailed-popup-body-about-flight-week-days p {
   margin: 0;
   font-size: 0.8rem;
-  color: var(--primary-color);
+  color: white;
 }
 
 #first-week-day {
