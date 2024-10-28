@@ -234,20 +234,20 @@ const MapComponent: React.FC<MapComponentProps> = ({ accessToken, center, zoom }
             'circle-color': [
               'step',
               ['get', 'point_count'],
-              '#51bbd6',
-              25, // 100
-              '#f1f075',
-              100, // 750
-              '#f28cb1'
+              '#1da1f2',
+              10, // 100
+              '#3d3d8a',
+              25, // 750
+              '#393950'
             ],
             'circle-radius': [
               'step',
               ['get', 'point_count'],
               20,
-              100,
-              30,
-              750,
-              40
+              10,
+              25,
+              25,
+              30
             ]
           }
         });
