@@ -12,9 +12,9 @@
 .loading {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  height: 37vh;
+  padding-top: 100px;
+  height: 50vh;
   width: 100%;
   background-color: var(--primary-color);
   color: white;
