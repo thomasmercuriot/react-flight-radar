@@ -150,7 +150,3 @@ git push origin feature-or-fix-name
 Go to the original repository on GitHub and click the **New Pull Request** button. Select your branch and submit your PR with a brief description of the changes.
 
 I'll review your submission as soon as possible. Thanks in advance for contributing ! :rocket:
-
-
-https://github.com/user-attachments/assets/e567f0e0-c631-48a9-870b-faea5ffe0ea5
-
