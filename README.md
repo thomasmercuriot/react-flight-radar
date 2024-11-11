@@ -191,3 +191,13 @@ When a flight is selected, a popup appears displaying essential details, includi
 Clicking the "View More" button expands the popup to full screen, providing comprehensive details about the flight. Users can explore all available information in a clear, easy-to-read layout.
 
 <img width="100%" src="/src/assets/pwa-screenshots-7.png" align="center" alt="Screenshots" />
+
+## Screenshots & Video Demo
+
+### Side-by-side Comparison with [FlightRadar24](https://www.flightradar24.com)
+
+<img width="100%" src="/src/assets/pwa-screenshots-8.png" align="center" alt="Screenshots" />
+
+### Video Demo
+
+<img width="100%" src="/src/assets/video-55-ezgif.com-video-to-gif-converter.gif" align="center" alt="Screenshots" /> <img width="100%" src="/src/assets/video-56-ezgif.com-video-to-gif-converter.gif" align="center" alt="Screenshots" />
