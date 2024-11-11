@@ -8,6 +8,11 @@
 
 # Live Flight Tracking Web Application
 
+## Table of Contents
+1. [Introduction](#introduction)
+2. [Getting Started](#getting-started)
+3. [App Features](#app-features)
+
 ## Introduction
 
 This is the front-end component of my first personal full-stack project — a live flight tracking application inspired by one of my favorite apps : [FlightRadar24](https://www.flightradar24.com). As a passionate aviation enthusiast and aspiring developer, I embarked on this project to combine my interests in planes and coding ! :airplane:
@@ -163,9 +168,13 @@ Discover how the app provides a dynamic and interactive experience for tracking 
 
 Upon opening the app, users are taken directly to a map centered on their current location. This provides immediate context and a seamless starting point for exploring nearby flights.
 
+<img width="100%" src="/src/assets/pwa-screenshots-5.png" align="center" alt="Screenshots" />
+
 ### Real-Time Flight Data Visualization
 
-Flights currently in the air within the visible map area are represented by points on the map. These points are updated in real-time, ensuring the information is always accurate and up-to-date.
+Flights currently in the air within the visible map area are represented by points on the map. These points are updated in real-time, ensuring the information is always accurate and up-to-date. The map automatically regroups planes in clusters when two points are too close to each other and allows the user to easily visualize how many planes are currently flying in a given zone, thanks to a heatmap style.
+
+<img width="100%" src="/src/assets/pwa-screenshots-4.png" align="center" alt="Screenshots" />
 
 ### Flight Selection and Highlighting
 
@@ -175,6 +184,10 @@ Users can click on any flight point to select it. The selected flight is highlig
 
 When a flight is selected, a popup appears displaying essential details, including origin, destination, remaining flight time, a thumbnail image of the aircraft, its registration, and callsign. This popup also includes a button to view more details about the flight.
 
+<img width="100%" src="/src/assets/pwa-screenshots-6.png" align="center" alt="Screenshots" />
+
 ### Expanded Flight Details
 
 Clicking the "View More" button expands the popup to full screen, providing comprehensive details about the flight. Users can explore all available information in a clear, easy-to-read layout.
+
+<img width="100%" src="/src/assets/pwa-screenshots-7.png" align="center" alt="Screenshots" />
