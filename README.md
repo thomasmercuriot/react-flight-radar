@@ -12,6 +12,7 @@
 1. [Introduction](#introduction)
 2. [Getting Started](#getting-started)
 3. [App Features](#app-features)
+4. [Screenshots & Video Demo](#screenshots--video-demo)
 
 ## Introduction
 
