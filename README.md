@@ -33,6 +33,8 @@ With a working back-end in place, I returned to developing the front-end, eager 
 
 This app is built as a **Progressive Web App** (PWA)[^2], meaning it’s designed to offer a native app-like experience on mobile. This approach was a great way to make the app more user-friendly and align with my goal of building a modern, accessible tool for aviation enthusiasts and plane spotters.
 
+<img width="100%" src="/src/assets/pwa-screenshots-3.png" align="center" alt="Screenshots" />
+
 [^2]: [Wikipedia : Progressive Web App (PWA)](https://en.wikipedia.org/wiki/Progressive_web_app)
 
 Although this project began as a fun way to put my React skills to the test, it evolved into an amazing full-stack journey ! Not only did I dive into React and TypeScript on the front-end, I also built an API with Node.js and Express, all while learning on the fly. The code may still be rough around the edges, and I’m continuously learning to write cleaner, more concise, and DRY code, but I’m proud of what I’ve accomplished, and I hope others can find value in this project as well.
@@ -152,3 +154,27 @@ git push origin feature-or-fix-name
 Go to the original repository on GitHub and click the **New Pull Request** button. Select your branch and submit your PR with a brief description of the changes.
 
 I'll review your submission as soon as possible. Thanks in advance for contributing ! :rocket:
+
+## App Features
+
+Discover how the app provides a dynamic and interactive experience for tracking live flights :
+
+### Interactive Map with Automatic User Location
+
+Upon opening the app, users are taken directly to a map centered on their current location. This provides immediate context and a seamless starting point for exploring nearby flights.
+
+### Real-Time Flight Data Visualization
+
+Flights currently in the air within the visible map area are represented by points on the map. These points are updated in real-time, ensuring the information is always accurate and up-to-date.
+
+### Flight Selection and Highlighting
+
+Users can click on any flight point to select it. The selected flight is highlighted with a distinct color, allowing users to quickly identify it among others on the map.
+
+### Flight Information Popup
+
+When a flight is selected, a popup appears displaying essential details, including origin, destination, remaining flight time, a thumbnail image of the aircraft, its registration, and callsign. This popup also includes a button to view more details about the flight.
+
+### Expanded Flight Details
+
+Clicking the "View More" button expands the popup to full screen, providing comprehensive details about the flight. Users can explore all available information in a clear, easy-to-read layout.
