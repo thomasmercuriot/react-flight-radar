@@ -200,4 +200,8 @@ Clicking the "View More" button expands the popup to full screen, providing comp
 
 ### Video Demo
 
-<img width="100%" src="/src/assets/video-55-ezgif.com-video-to-gif-converter.gif" align="center" alt="Screenshots" /> <img width="100%" src="/src/assets/video-56-ezgif.com-video-to-gif-converter.gif" align="center" alt="Screenshots" />
+<p align="center">
+ <img width="30%" src="/src/assets/gif-pwa-1.gif" align="center" alt="Screenshots" />
+ <img width="30%" src="/src/assets/gif-pwa-2.gif" align="center" alt="Screenshots" />
+ <img width="30%" src="/src/assets/gif-pwa-3.gif" align="center" alt="Screenshots" />
+</p>
