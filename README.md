@@ -8,9 +8,13 @@
 
 # Live Flight Tracking Web Application
 
+<img width="100px" src="/src/assets/flight-radar-app-icon-rounded.png" align="center" alt="Progressive Web App Logo" />
+
 ## Introduction
 
 This is the front-end component of my first personal full-stack project — a live flight tracking application inspired by one of my favorite apps : [FlightRadar24](https://www.flightradar24.com). As a passionate aviation enthusiast and aspiring developer, I embarked on this project to combine my interests in planes and coding ! :airplane:
+
+<img width="100%" src="/src/assets/pwa-screenshots-1.png" align="center" alt="Screenshots" />
 
 Originally, I envisioned this as a front-end only project to test my knowledge after completing both Meta's [React Basics](https://coursera.org/verify/TLY5F2KZEV3S) and [Advanced React](https://coursera.org/verify/S3A3TA4QGEDD) courses. However, I soon discovered that accessing live flight data via API services was costly, leading me to explore alternatives, and after some research, I ventured into web scraping to obtain real-time data. Scraping data directly in the client-side React app proved to be problematic due to security restrictions around **CORS** (Cross-Origin Resource Sharing)[^1] and limitations around client-side requests. With these restrictions, the browser blocks direct requests to many servers for security reasons, making client-side scraping unfeasible. This led me to realize that I’d need a back-end component to handle data requests.
 
